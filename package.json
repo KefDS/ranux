@@ -1,0 +1,9 @@
+{
+  "name": "ranux",
+  "version": "1.0.0",
+  "description": "RANA: RANA's Another Notes App",
+  "main": "index.js",
+  "repository": "https://github.com/KefDS/ranux.git",
+  "author": "Kevin Delgado Sandí & Joel Álvarez Myrrie",
+  "license": "GNU v3"
+}
