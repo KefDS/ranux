@@ -1,6 +1,6 @@
 const path = require('path');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
@@ -26,7 +26,7 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.jsx?$/,
+        test: /\.jsx?/,
         loader: 'eslint-loader',
         exclude: /node_modules/,
       },
@@ -42,6 +42,7 @@ module.exports = {
           'css-loader',
           'postcss-loader',
           'sass-loader',
+          'stylefmt-loader',
         ],
       },
     ],
@@ -56,8 +57,12 @@ module.exports = {
           autoprefixer({
             browsers: ['last 2 version'],
           }),
-          precss(),
         ],
+      },
+    }),
+    new StyleLintPlugin({
+      options: {
+        syntax: 'scss',
       },
     }),
   ],
