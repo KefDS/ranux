@@ -5,9 +5,9 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
 module.exports = {
-  context: path.join(__dirname, '/src'),
+  context: path.join(__dirname, '/'),
   entry: {
-    javascript: './app.jsx',
+    javascript: './src/app.jsx',
   },
   devtool: 'source-map',
   output: {
@@ -49,7 +49,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.tpl.ejs',
+      template: 'src/index.tpl.ejs',
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
