@@ -42,7 +42,12 @@ module.exports = {
           'css-loader',
           'postcss-loader',
           'sass-loader',
-          'stylefmt-loader',
+          {
+            loader: 'stylefmt-loader',
+            options: {
+              config: '.stylelintrc',
+            },
+          },
         ],
       },
     ],

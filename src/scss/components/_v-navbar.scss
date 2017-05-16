@@ -1,0 +1,42 @@
+.v-navbar {
+  padding: 75px 25px 0;
+  display: block;
+  position: fixed;
+  z-index: 1;
+  background-color: $parrot-black;
+  height: 100vh;
+  border-right: 0.3px solid rgba(0, 0, 0, 0.1);
+  transition: padding 0.5s;
+
+  li {
+    padding-bottom: 2rem;
+    list-style: none;
+
+    &:first-child {
+      padding-top: 2rem;
+    }
+
+    &:last-child {
+      position: absolute;
+      bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .fa {
+      font-size: 25px;
+      color: $parrot-light-green;
+      transition: all 0.15s;
+
+      &:hover {
+        transform: scale(1.5, 1.5);
+        color: $parrot-extra-light-green;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .v-navbar {
+    display: none;
+  }
+}
