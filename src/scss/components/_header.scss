@@ -1,0 +1,172 @@
+.custom-navbar {
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25), 0 2px 36px rgba(0, 0, 0, 0.1);
+
+  &--push-left {
+    padding-left: 0;
+  }
+}
+
+.navbar-toggle {
+  border: 0;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #fff;
+}
+
+//Animate search button
+
+.main-nav {
+  display: inline-block;
+  position: relative;
+  float: right;
+  top: 1rem;
+
+  //Nota: Era hacer esto, o copiar inspeccionando el elemnto
+  .search-group__input {
+    width: 9rem;
+    transition: all 0.3s;
+
+    &:focus {
+      width: 17rem;
+    }
+  }
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+
+  img {
+    background-color: transparent;
+    width: 76px;
+  }
+
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+  &__name {
+    font-family: 'Lato', sans-serif;
+    color: $parrot-dark-green;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: $parrot-medium-green;
+      text-decoration: none;
+    }
+  }
+}
+
+//Navigation and List of navigation
+
+.action-list {
+  position: relative;
+  margin-bottom: 0.5rem;
+  top: 0.5em;
+
+  li {
+    text-align: center;
+    display: none; // For serach bar and button to be next to each other
+
+    &:last-child {
+      display: inline-block;
+    }
+
+    a {
+      color: $parrot-dark-green;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+//Search form
+
+.search-form {
+  display: inline-block;
+}
+
+.search-group__btn {
+  margin-left: -2.7rem;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+//When sidebar disappears
+
+@media only screen and (max-width: 991px) {
+  .action-list {
+    li {
+      display: inline-block;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo {
+    left: 1rem;
+  }
+  //When in mobile mode, get rid of transition and return to normal input
+  .main-nav {
+    width: 100%;
+
+    .search-group__input { //Era hacer esto, o copiar inspeccionando el elemnto
+      width: 70%;
+      float: left;
+      transition: none;
+    }
+
+    .search-group__btn {
+      border-color: #adadad;
+      width: 20%;
+      margin-left: 1rem;
+      clear: both;
+    }
+
+    .search-group__input:focus {
+      width: 70%;
+    }
+
+    .search-form {
+      border-top: none;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  .action-list {
+    top: 0; //reset top property, since it was altered previously
+    height: 100%;
+    padding-bottom: 1rem;
+
+    li {
+      text-align: center;
+      display: block; //For serach bar and button to be next to each other
+
+      &:last-child {
+        display: block;
+      }
+
+      &:hover {
+        background-color: $parrot-white;
+        color: $parrot-dark-green;
+      }
+
+      a {
+        color: $parrot-dark-green;
+        transition: background-color 0.3s;
+      }
+    }
+  }
+
+  .navbar-toggle { //-- Send hamburger icon a little bit down
+    display: relative;
+    top: 1rem;
+  }
+}

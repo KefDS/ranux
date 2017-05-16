@@ -1,3 +1,15 @@
-* {
-  color: yellow;
-}
+//@import "vendor/bootstrap-custom";
+@import "components/_main-content.scss";
+
+// Helpers
+@import "helpers/parrot-scheme-color";
+@import "helpers/material-design-colors";
+
+// Pages
+@import "pages/general.scss";
+
+// Components
+@import "components/_v-navbar";
+@import "components/header";
+@import "components/new-note";
+@import "components/note";

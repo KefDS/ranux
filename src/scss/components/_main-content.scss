@@ -1,0 +1,28 @@
+.main-content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.editor {
+  flex-basis: 45%;
+  min-width: 350px;
+}
+
+.note-viwer {
+  flex-basis: 45%;
+}
+
+@media only screen and (max-width: 768px) {
+  .editor {
+    flex-basis: 100%;
+  }
+
+  .note-viwer {
+    flex-basis: 70%;
+  }
+
+  .note {
+    height: 18rem;
+  }
+}
