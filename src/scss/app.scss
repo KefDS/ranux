@@ -1,5 +1,5 @@
 //@import "vendor/bootstrap-custom";
-@import "components/_main-content.scss";
+@import "components/main-content.scss";
 
 // Helpers
 @import "helpers/parrot-scheme-color";
@@ -9,7 +9,8 @@
 @import "pages/general.scss";
 
 // Components
-@import "components/_v-navbar";
+@import "components/v-navbar";
 @import "components/header";
-@import "components/new-note";
+@import "components/note-viewer";
+@import "components/note-actions";
 @import "components/note";
