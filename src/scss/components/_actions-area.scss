@@ -1,0 +1,96 @@
+.actions-area {
+  transition: all 0.5s;
+  position: relative;
+
+  &--in-add {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &-btn {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+
+    &--in-add {
+      &:hover {
+        background-color: $parrot-dark-green;
+        color: white;
+      }
+    }
+  }
+
+  &__done {
+    font-size: 1.2rem;
+    width: 20%;
+    text-transform: uppercase;
+    float: right;
+
+    &--in-add {
+      background-color: $parrot-medium-green;
+      color: white;
+    }
+  }
+}
+
+.folder-select {
+  position: absolute;
+  top: 0;
+  left: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 1s;
+  opacity: 0;
+
+  &__folder-list {
+    list-style: none;
+
+    li {
+      margin: 0.5rem;
+    }
+  }
+}
+
+.palette {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.2);
+  left: 0.5rem;
+  transition: all 0.5s;
+  opacity: 0;
+
+  .palette__btn {
+    width: 1rem;
+    height: 1rem;
+    margin: 0.5rem;
+    border-radius: 50%;
+    border: none;
+  }
+}
+
+.actions-area__folder-picker:hover + .folder-select,
+.folder-select:hover {
+  opacity: 1;
+  visibility: visible;
+  top: -10rem;
+  left: 2rem;
+}
+
+.show-sub-action { //actions-area--show
+  opacity: 1;
+  visibility: visible;
+
+  &.show-sub-action-palette {
+    top: -3rem;
+  }
+
+  &.show-sub-action-folder {
+    top: -10rem;
+  }
+}
