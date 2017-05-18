@@ -17,7 +17,6 @@ const NoteViewer = () => (
       <NoteActions modifier='--in-add' />
     </section>
   </section>
-
 );
 
 export default NoteViewer;

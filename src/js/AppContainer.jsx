@@ -1,11 +1,11 @@
 import React from 'react';
-import NotesContainer from './Note/NotesBlock';
+import NotesContainer from './Note/NotesContainer';
 import NoteViewer from './Note/NoteViewer';
 
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { notes: [{ title: 'Crepusculo', content: 'An awesome movie', color: 'green' }], activeNote: {} };
+    this.state = { notes: [], activeNote: {} };
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
   }

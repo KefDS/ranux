@@ -12,6 +12,6 @@ const App = () => (
     <Header />
     <AppContainer />
   </div>
-    );
+);
 
 render(<App />, document.getElementById('root'));

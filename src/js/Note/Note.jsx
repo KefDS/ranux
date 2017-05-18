@@ -11,14 +11,17 @@ const Note = ({ color, title, content }) => (
     </p>
   </article>
 );
+
 Note.propTypes = {
   color: PropTypes.string,
   title: PropTypes.string,
   content: PropTypes.string,
 };
+
 Note.defaultProps = {
   color: 'green',
   title: '',
   content: '',
 };
+
 export default Note;
