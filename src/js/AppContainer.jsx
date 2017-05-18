@@ -5,7 +5,12 @@ import NoteViewer from './Note/NoteViewer';
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { notes: [], activeNote: {} };
+
+    this.state = {
+      notes: [],
+      activeNote: { id: '1', title: 'React', content: 'Active Note', isNewNote: true },
+    };
+
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
   }
@@ -23,7 +28,7 @@ class AppContainer extends React.Component {
   }
 
   handleActiveNote(modifiedNote) {
-    return modifiedNote.isNewNote ? this.state.concat([modifiedNote]) :
+    return modifiedNote.isNewNote ? this.state.notes.concat([modifiedNote]) :
     this.state.notes.map(note => (
       note.id === modifiedNote.id ? modifiedNote : note
     ));
@@ -34,13 +39,13 @@ class AppContainer extends React.Component {
       <div className='container'>
         <div className='row'>
           <NoteViewer
-            activeNote={ this.state.activeNote }
-            note={ this.selectNote }
+            note={ this.state.activeNote }
+            noteAction={ this.noteModified }
           />
           <NotesContainer
             title='Last Recently Used'
             notes={ this.state.notes }
-            noteAction={ this.noteModified }
+            noteAction={ this.selectNote }
           />
         </div>
       </div>

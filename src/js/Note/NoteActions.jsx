@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
 
-const NoteActions = ({ modifier }) => (
+const NoteActions = ({ modifier, doneAction }) => (
   <div className={ `actions-area actions-area${modifier}` }>
     <NoteColorSelector />
     <NoteAction faIcon='paint-brush' action={ () => {} } />
@@ -15,6 +15,7 @@ const NoteActions = ({ modifier }) => (
       value='Add new note'
       className={ `btn btn-default btn-block actions-area-btn actions-area-btn${modifier}
       actions-area__done actions-area__done${modifier}` }
+      onClick={ doneAction }
     >
       <i className='fa fa-check' aria-hidden='true' />
     </button>
@@ -23,10 +24,12 @@ const NoteActions = ({ modifier }) => (
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,
+  doneAction: PropTypes.func,
 };
 
 NoteActions.defaultProps = {
   modifier: '',
+  doneAction: () => console.log('Done button'),
 };
 
 export default NoteActions;
