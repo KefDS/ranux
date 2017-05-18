@@ -1,4 +1,4 @@
-.new-note {
+.note-viewer {
   padding-top: $default-padding-top;
   padding-bottom: $default-padding-top * 2;
   margin-bottom: $defualt-margin-bottom;
@@ -9,7 +9,7 @@
   }
 
   &__form {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
     border: 1px solid #eaedf0;
   }
