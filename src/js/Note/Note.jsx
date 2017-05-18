@@ -18,7 +18,7 @@ Note.propTypes = {
 };
 Note.defaultProps = {
   color: 'green',
-  title: 'JS libraries',
-  content: 'React, JQuery, Vue',
+  title: '',
+  content: '',
 };
 export default Note;

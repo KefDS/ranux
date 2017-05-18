@@ -6,7 +6,7 @@ class Header extends React.Component {
 
   handleSearch() {
     this.state = {};
-    console.log('asdf');
+    // console.log('asdf');
   }
 
   render() {

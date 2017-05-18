@@ -19,12 +19,9 @@ const Search = ({ faIcon, action }) => (
 );
 
 Search.propTypes = {
-  faIcon: PropTypes.string,
-  action: PropTypes.fun,
+  faIcon: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
 };
-Search.defaultProps = {
-  faIcon: 'Some notes',
-  action: function pornhub() {},
-};
+
 
 export default Search;

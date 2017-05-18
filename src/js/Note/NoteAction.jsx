@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const NoteAction = ({ faIcon, action }) => (
   <button
@@ -9,5 +10,10 @@ const NoteAction = ({ faIcon, action }) => (
     <i className={ `fa fa-${faIcon}` } aria-hidden='true' />
   </button>
 );
+
+NoteAction.propTypes = {
+  faIcon: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+};
 
 export default NoteAction;
