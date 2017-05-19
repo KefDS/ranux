@@ -23,5 +23,4 @@ Search.propTypes = {
   action: PropTypes.func.isRequired,
 };
 
-
 export default Search;

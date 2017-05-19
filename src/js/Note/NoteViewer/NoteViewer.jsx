@@ -1,7 +1,9 @@
 import React from 'react';
 import { bool, number, func, string, arrayOf, shape } from 'prop-types';
 
-import NoteActions from './NoteActions';
+import './_note-viewer.scss';
+
+import NoteActions from '../NotesActions/NoteActions';
 
 export default class NoteViewerForm extends React.Component {
   constructor(props) {
@@ -48,7 +50,7 @@ export default class NoteViewerForm extends React.Component {
           />
           <NoteActions
             modifier='--in-add'
-            doneAction={ this.props.doneAction.bind(this, this.state.note) }
+            doneAction={ this.props.doneAction.bind(null, this.state.note) }
           />
         </section>
       </section>

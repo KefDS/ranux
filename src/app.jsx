@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Header from './js/Header';
-import VerticalNavbar from './js/VerticalNavbar';
-import AppContainer from './js/AppContainer';
+
 import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 import './scss/app.scss';
+
+import Header from './js/Header/Header';
+import VerticalNavbar from './js/VerticalNavbar/VerticalNavbar';
+import AppContainer from './js/AppContainer';
 
 const App = () => (
   <div>

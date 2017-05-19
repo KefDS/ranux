@@ -1,3 +1,5 @@
+@import '../../../scss/helpers/variables';
+
 .actions-area {
   transition: all 0.5s;
   position: relative;
@@ -35,26 +37,6 @@
   }
 }
 
-.folder-select {
-  position: absolute;
-  top: 0;
-  left: 3rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  visibility: hidden;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: all 1s;
-  opacity: 0;
-
-  &__folder-list {
-    list-style: none;
-
-    li {
-      margin: 0.5rem;
-    }
-  }
-}
-
 .palette {
   border: 1px solid rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -74,23 +56,8 @@
   }
 }
 
-.actions-area__folder-picker:hover + .folder-select,
-.folder-select:hover {
-  opacity: 1;
+.show-palette {
+  top: -3rem;
   visibility: visible;
-  top: -10rem;
-  left: 2rem;
-}
-
-.show-sub-action { //actions-area--show
   opacity: 1;
-  visibility: visible;
-
-  &.show-sub-action-palette {
-    top: -3rem;
-  }
-
-  &.show-sub-action-folder {
-    top: -10rem;
-  }
 }

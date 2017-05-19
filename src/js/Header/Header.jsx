@@ -1,12 +1,11 @@
 import React from 'react';
 import Search from './Search';
 
+import './_header.scss';
 
-class Header extends React.Component {
-
+export default class Header extends React.Component {
   handleSearch() {
     this.state = {};
-    // console.log('asdf');
   }
 
   render() {
@@ -29,21 +28,24 @@ class Header extends React.Component {
                   <span className='icon-bar' />
                 </button>
                 <section className='logo'>
-                  <img
-                    src='src/assets/images/rana-ico-light.png'
-                    alt='logo'
-                  />
+                  <img src='src/assets/images/rana-ico-light.png' alt='logo' />
                 </section>
               </div>
-              <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+              <div
+                className='collapse navbar-collapse'
+                id='bs-example-navbar-collapse-1'
+              >
                 <div className='main-nav'>
-                  <Search faIcon='search' action={ () => this.handleSearch() } />
+                  <Search faIcon='search' action={ this.handleSearch } />
                   <ul className='nav  navbar-list navbar-right action-list '>
-                    <li><a href=''>Notebooks</a>
+                    <li>
+                      <a href=''>Notebooks</a>
                     </li>
-                    <li><a href=''>Notes</a>
+                    <li>
+                      <a href=''>Notes</a>
                     </li>
-                    <li><a href=''>Account</a>
+                    <li>
+                      <a href=''>Account</a>
                     </li>
                   </ul>
                 </div>
@@ -55,4 +57,3 @@ class Header extends React.Component {
     );
   }
 }
-export default Header;

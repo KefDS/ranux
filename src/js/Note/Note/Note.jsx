@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './_note.scss';
+
 class Note extends React.Component {
   constructor(props) {
     super(props);

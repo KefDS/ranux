@@ -1,3 +1,5 @@
+@import '../../scss/helpers/variables';
+
 .custom-navbar {
   border: none;
   border-radius: 0;
@@ -20,7 +22,7 @@
   background-color: #fff;
 }
 
-//Animate search button
+// Animate search button
 
 .main-nav {
   display: inline-block;
@@ -28,7 +30,7 @@
   float: right;
   top: 1rem;
 
-  //Nota: Era hacer esto, o copiar inspeccionando el elemnto
+  // Nota: Era hacer esto, o copiar inspeccionando el elemnto
   .search-form__input {
     width: 9rem;
     transition: all 0.3s;
@@ -63,7 +65,7 @@
   }
 }
 
-//Navigation and List of navigation
+// Navigation and List of navigation
 
 .action-list {
   position: relative;
@@ -86,7 +88,7 @@
   }
 }
 
-//Search form
+// Search form
 
 .search-form {
   display: inline-block;
@@ -98,7 +100,7 @@
   border-color: transparent;
 }
 
-//When sidebar disappears
+// When sidebar disappears
 
 @media only screen and (max-width: 991px) {
   .action-list {
@@ -112,7 +114,7 @@
   .logo {
     left: 1rem;
   }
-  //When in mobile mode, get rid of transition and return to normal input
+  // When in mobile mode, get rid of transition and return to normal input
   .main-nav {
     width: 100%;
 

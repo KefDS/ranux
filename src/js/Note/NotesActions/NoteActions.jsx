@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import './_note-actions.scss';
+
 import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
 

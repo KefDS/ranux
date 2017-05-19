@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './_verticalNavbar.scss';
+
 const VerticalNavbar = () => (
   <nav id='verticalNavbar' className='v-navbar'>
     <li>

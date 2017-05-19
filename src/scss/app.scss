@@ -1,17 +1,2 @@
-//@import "vendor/bootstrap-custom";
-@import "components/main-content.scss";
-
-// Helpers
-@import "helpers/parrot-scheme-color";
-@import "helpers/material-design-colors";
-
 // Pages
-@import "pages/general.scss";
-
-// Components
-@import "components/v-navbar";
-@import "components/header";
-@import "components/note-viewer";
-@import "components/note-actions";
-@import "components/note";
-@import "components/actions-area";
+@import "base/general";

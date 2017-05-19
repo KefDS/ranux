@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './_note-actions.scss';
+
 const NoteAction = ({ faIcon, action }) => (
   <button
     type='button'

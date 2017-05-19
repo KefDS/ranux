@@ -1,6 +1,7 @@
 import React from 'react';
+
 import NotesContainer from './Note/NotesContainer';
-import NoteViewer from './Note/NoteViewer';
+import NoteViewer from './Note/NoteViewer/NoteViewer';
 
 class AppContainer extends React.Component {
   constructor(props) {

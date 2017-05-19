@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Note from './Note';
+import Note from './Note/Note';
 
 const NotesContainer = ({ notes, title, handlerSelectNote }) => (
   <section className='col-md-6 col-xm-12 col-md-offset-1 notes'>
