@@ -1,21 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Note = ({ color, title, content }) => (
-  <article className={ `note ${color}` }>
-    <p className='note__note-name'>
-      {title}
-    </p>
-    <p className='note__note-content'>
-      {content}
-    </p>
-  </article>
-);
+class Note extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onClickHelper = this.onClickHelper.bind(this);
+  }
 
+  onClickHelper() {
+    const note = {
+      id: this.props.id,
+      title: this.props.title,
+      content: this.props.content,
+      color: this.props.color,
+    };
+    this.props.handlerSelectNote(note);
+  }
+  render() {
+    const { color, title, content } = this.props;
+    return (
+      <article className={ `note ${color}` } onClick={ this.onClickHelper } >
+        <p className='note__note-name'>
+          {title}
+        </p>
+        <p className='note__note-content'>
+          {content}
+        </p>
+      </article>
+    );
+  }
+}
 Note.propTypes = {
+  id: PropTypes.number.isRequired,
   color: PropTypes.string,
   title: PropTypes.string,
   content: PropTypes.string,
+  handlerSelectNote: PropTypes.func.isRequired,
 };
 
 Note.defaultProps = {

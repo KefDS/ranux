@@ -1,19 +1,31 @@
 import React from 'react';
-import { shape, string, func } from 'prop-types';
+import { bool, number, func, string, arrayOf, shape } from 'prop-types';
+
 import NoteActions from './NoteActions';
 
-export default class NoteViewer extends React.Component {
+export default class NoteViewerForm extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleDoneNoteAction = this.handleDoneNoteAction.bind(this);
+    this.state = {
+      note: props.note,
+    };
   }
 
-  handleDoneNoteAction() {
-    const title = document.getElementById('note_viewer_title').value;
-    const content = document.getElementById('note_viewer_textarea').value;
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      note: nextProps.note,
+    });
+  }
 
-    this.props.noteAction({ title, content, ...this.props.note });
+  setValue(field, event) {
+    // If the input fields were directly within this
+    // this component, we could use this.refs.[FIELD].value
+    // Instead, we want to save the data for when the form is submitted
+    const object = { note: {} };
+    object.note[field] = event.target.value;
+    this.setState({
+      note: Object.assign(this.state.note, object.note),
+    });
   }
 
   render() {
@@ -21,42 +33,48 @@ export default class NoteViewer extends React.Component {
       <section className='col-md-4 col-md-offset-1 note-viewer'>
         <section className='note-viewer__form'>
           <input
-            id='note_viewer_title'
+            className='form-control note-viewer__title'
             type='text'
             placeholder='Note Title'
-            className='form-control note-viewer__title'
-            defaultValue={ this.props.note.title }
+            value={ this.state.note.title }
+            onChange={ this.setValue.bind(this, 'title') }
           />
           <textarea
-            id='note_viewer_textarea'
             className='form-control note-viewer__textarea'
             placeholder='Take a note...'
-            defaultValue={ this.props.note.content }
+            value={ this.state.note.content }
+            onChange={ this.setValue.bind(this, 'content') }
             rows='5'
           />
-          <NoteActions modifier='--in-add' doneAction={ this.handleDoneNoteAction } />
+          <NoteActions
+            modifier='--in-add'
+            doneAction={ this.props.doneAction.bind(this, this.state.note) }
+          />
         </section>
       </section>
     );
   }
 }
 
-NoteViewer.propTypes = {
+NoteViewerForm.propTypes = {
   note: shape({
+    id: number.isRequired,
     title: string,
     content: string,
     color: string,
+    tags: arrayOf(string),
+    isNewNote: bool,
   }),
 
-  noteAction: func,
+  doneAction: func.isRequired,
 };
 
-NoteViewer.defaultProps = {
-  note: {
+NoteViewerForm.defaultProps = {
+  note: shape({
     title: '',
     content: '',
     color: 'green',
-  },
-
-  noteAction: () => {},
+    tags: [],
+    isNewNote: true,
+  }),
 };

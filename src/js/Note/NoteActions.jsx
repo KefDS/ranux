@@ -24,12 +24,11 @@ const NoteActions = ({ modifier, doneAction }) => (
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,
-  doneAction: PropTypes.func,
+  doneAction: PropTypes.func.isRequired,
 };
 
 NoteActions.defaultProps = {
   modifier: '',
-  doneAction: () => console.log('Done button'),
 };
 
 export default NoteActions;
