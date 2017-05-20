@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 import NotesContainer from './Note/NotesContainer';
 import NoteViewer from './Note/NoteViewer/NoteViewer';
@@ -73,17 +77,30 @@ class AppContainer extends React.Component {
   render() {
     return (
       <div className='container'>
-        <div className='row'>
-          <NoteViewer
-            note={ this.state.activeNote }
-            doneAction={ this.noteModified }
+
+        <Switch>
+          <Route
+            exact path='/'
+            render={ () => (
+              <div className='row'>
+                <NoteViewer
+                  note={ this.state.activeNote }
+                  doneAction={ this.noteModified }
+                />
+                <NotesContainer
+                  title='Last Recently Used'
+                  notes={ this.state.notes }
+                  handlerSelectNote={ this.selectNote }
+                />
+              </div>
+            ) }
           />
-          <NotesContainer
-            title='Last Recently Used'
-            notes={ this.state.notes }
-            handlerSelectNote={ this.selectNote }
+          <Route
+            path='/folders'
+            render={ () => (<h1>FOLDERS must have its own component,
+            which encapsulates FolderViewer and  maybe NotesContainer</h1>) }
           />
-        </div>
+        </Switch>
       </div>
     );
   }
