@@ -15,7 +15,7 @@ import AppContainer from './js/AppContainer';
 const App = () => (
   <Router>
     <div>
-      <Route path='*' component={ VerticalNavbar } />
+      <Route path='/' component={ VerticalNavbar } />
       <Header />
       <Route path='/' component={ AppContainer } />
     </div>

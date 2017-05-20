@@ -6,6 +6,7 @@ import {
 
 import NotesContainer from './Note/NotesContainer';
 import NoteViewer from './Note/NoteViewer/NoteViewer';
+import NotFound from './NotFound/NotFound';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -99,6 +100,11 @@ class AppContainer extends React.Component {
             path='/folders'
             render={ () => (<h1>FOLDERS must have its own component,
             which encapsulates FolderViewer and  maybe NotesContainer</h1>) }
+          />
+
+          <Route
+            path='*'
+            component={ NotFound }
           />
         </Switch>
       </div>
