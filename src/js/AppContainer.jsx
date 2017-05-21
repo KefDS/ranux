@@ -1,4 +1,6 @@
 import React from 'react';
+import Axios from 'axios';
+
 import {
   Switch,
   Route,
@@ -12,38 +14,19 @@ class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.counter = 0;
-
-    this.state = {
-      notes: [
-        {
-          id: 1000,
-          title: 'React Notes',
-          content: 'React :-D',
-        },
-        {
-          id: 1001,
-          title: 'Angular Notes',
-          content: 'Angular :-|',
-        },
-        {
-          id: 1002,
-          title: 'PHP Notes',
-          content: 'PHP >:-(',
-        },
-        {
-          id: 1003,
-          title: 'Ruby Notes',
-          content: 'Ruby <3 ;-)',
-        },
-      ],
-      activeNote: {
-        id: 0,
-        isNewNote: true,
-      },
-    };
-
+    this.state = { notes: [], activeNote: {} };
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
+  }
+
+  componentDidMount() {
+    Axios.get('http://localhost:3000/notes/')
+  .then((response) => {
+    this.setState({ notes: response.data });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
   }
 
   nextId() {
