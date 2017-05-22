@@ -1,11 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 
-import {
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import NotesContainer from './Note/NotesContainer';
 import NoteViewer from './Note/NoteViewer/NoteViewer';
@@ -17,18 +13,25 @@ class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.counter = 0;
-    this.state = { notes: [], activeNote: {}, showArea: '' };
+    this.state = { notes: [], activeNote: {}, showArea: '', searchTerm: '' };
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
     Axios.get('http://localhost:3000/notes/')
-    .then((response) => {
-      this.setState({ notes: response.data });
-    })
-    .catch((error) => {
-      console.log(error);
+      .then((response) => {
+        this.setState({ notes: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  handleSearch(newSearchTerm) {
+    this.setState({
+      searchTerm: newSearchTerm,
     });
   }
 
@@ -55,21 +58,18 @@ class AppContainer extends React.Component {
 
   handleActiveNote(modifiedNote) {
     return modifiedNote.isNewNote
-    ? this.state.notes.concat([modifiedNote])
-    : this.state.notes.map(
-      note => (note.id === modifiedNote.id ? modifiedNote : note),
-    );
+      ? this.state.notes.concat([modifiedNote])
+      : this.state.notes.map(
+          note => (note.id === modifiedNote.id ? modifiedNote : note),
+        );
   }
 
   render() {
     return (
       <div>
         <VerticalNavbar />
-        <Header />
-        <Route
-          exact path='/'
-          render={ () => <Redirect to='/notes' /> }
-        />
+        <Header searchTerm={ this.state.searchTerm } searchAction={ this.handleSearch } />
+        <Route exact path='/' render={ () => <Redirect to='/notes' /> } />
         <div className='container'>
           <Switch>
             <Route
@@ -90,18 +90,19 @@ class AppContainer extends React.Component {
             />
             <Route
               path='/folders'
-              render={ () => (<h1>FOLDERS must have its own component,
-              which encapsulates FolderViewer and  maybe NotesContainer</h1>) }
+              render={ () => (
+                <h1>
+                  FOLDERS must have its own component,
+                  which encapsulates FolderViewer and  maybe NotesContainer
+                </h1>
+              ) }
             />
-            <Route
-              path='*'
-              component={ NotFound }
-            />
+            <Route path='*' component={ NotFound } />
           </Switch>
         </div>
       </div>
     );
   }
-  }
+}
 
 export default AppContainer;

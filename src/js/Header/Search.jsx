@@ -1,26 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, func } from 'prop-types';
 
-const Search = ({ faIcon, action }) => (
-  <div className='navbar-form search-form'>
-    <input
-      type='search'
-      className='form-control search-form__input'
-      placeholder='Search'
-    />
-    <button
-      type='submit'
-      className='btn btn-default search-form__btn'
-      onClick={ action }
-    >
-      <i className={ `fa fa-${faIcon}` } aria-hidden='true' />
-    </button>
-  </div>
-);
+export default class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
+  handleOnChange(evt) {
+    this.props.searchAction(evt.target.value);
+  }
+
+  render() {
+    const { faIcon, searchTerm } = this.props;
+    return (
+      <div className='navbar-form search-form'>
+        <input
+          type='search'
+          className='form-control search-form__input'
+          placeholder='Search'
+          onChange={ this.handleOnChange }
+          value={ searchTerm }
+        />
+        <button type='submit' className='btn btn-default search-form__btn'>
+          <i className={ `fa fa-${faIcon}` } aria-hidden='true' />
+        </button>
+      </div>
+    );
+  }
+}
 
 Search.propTypes = {
-  faIcon: PropTypes.string.isRequired,
-  action: PropTypes.func.isRequired,
+  faIcon: string.isRequired,
+  searchTerm: string,
+  searchAction: func.isRequired,
 };
 
-export default Search;
+Search.defaultProps = {
+  searchTerm: '',
+};

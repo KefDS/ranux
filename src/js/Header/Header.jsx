@@ -1,14 +1,13 @@
 import React from 'react';
+import { func, string } from 'prop-types';
+
 import Search from './Search';
 
 import './_header.scss';
 
 export default class Header extends React.Component {
-  handleSearch() {
-    this.state = {};
-  }
-
   render() {
+    const { searchTerm, searchAction } = this.props;
     return (
       <div>
         <header>
@@ -36,7 +35,11 @@ export default class Header extends React.Component {
                 id='bs-example-navbar-collapse-1'
               >
                 <div className='main-nav'>
-                  <Search faIcon='search' action={ this.handleSearch } />
+                  <Search
+                    faIcon='search'
+                    searchTerm={ searchTerm }
+                    searchAction={ searchAction }
+                  />
                   <ul className='nav  navbar-list navbar-right action-list '>
                     <li>
                       <a href=''>Notebooks</a>
@@ -57,3 +60,8 @@ export default class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  searchTerm: string.isRequired,
+  searchAction: func.isRequired,
+};
