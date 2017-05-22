@@ -7,7 +7,7 @@ import './_header.scss';
 
 export default class Header extends React.Component {
   render() {
-    const { searchTerm, searchAction } = this.props;
+    const { searchTerm, searchTermGetValue, searchAction } = this.props;
     return (
       <div>
         <header>
@@ -38,6 +38,7 @@ export default class Header extends React.Component {
                   <Search
                     faIcon='search'
                     searchTerm={ searchTerm }
+                    searchTermGetValue={ searchTermGetValue }
                     searchAction={ searchAction }
                   />
                   <ul className='nav  navbar-list navbar-right action-list '>
@@ -63,5 +64,6 @@ export default class Header extends React.Component {
 
 Header.propTypes = {
   searchTerm: string.isRequired,
+  searchTermGetValue: func.isRequired,
   searchAction: func.isRequired,
 };

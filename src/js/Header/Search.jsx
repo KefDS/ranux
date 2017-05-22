@@ -5,10 +5,15 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleSubmitSearchButton = this.handleSubmitSearchButton.bind(this);
   }
 
   handleOnChange(evt) {
-    this.props.searchAction(evt.target.value);
+    this.props.searchTermGetValue(evt.target.value);
+  }
+
+  handleSubmitSearchButton() {
+    this.props.searchAction();
   }
 
   render() {
@@ -22,7 +27,11 @@ export default class Search extends React.Component {
           onChange={ this.handleOnChange }
           value={ searchTerm }
         />
-        <button type='submit' className='btn btn-default search-form__btn'>
+        <button
+          type='submit'
+          className='btn btn-default search-form__btn'
+          onClick={ this.handleSubmitSearchButton }
+        >
           <i className={ `fa fa-${faIcon}` } aria-hidden='true' />
         </button>
       </div>
@@ -34,6 +43,7 @@ Search.propTypes = {
   faIcon: string.isRequired,
   searchTerm: string,
   searchAction: func.isRequired,
+  searchTermGetValue: func.isRequired,
 };
 
 Search.defaultProps = {

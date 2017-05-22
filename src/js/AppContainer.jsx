@@ -13,7 +13,14 @@ class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.counter = 0;
-    this.state = { notes: [], activeNote: {}, showArea: '', searchTerm: '' };
+    this.state = {
+      notes: [],
+      activeNote: { id: this.nextId(), isNewNote: true },
+      showArea: '',
+      searchTerm: '',
+      searchScope: 'notes',
+    };
+
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -29,10 +36,20 @@ class AppContainer extends React.Component {
       });
   }
 
-  handleSearch(newSearchTerm) {
+  getSearchValue(newSearchTerm) {
     this.setState({
       searchTerm: newSearchTerm,
     });
+  }
+
+  handleSearch() {
+    // TODO: Filter note, notebook with search term criteria
+  }
+
+  _filterByTitle(collection, match) {
+    return collection.filter(
+      item => `${item.title}`.toUpperCase().indexOf(match.toUpperCase()) >= 0,
+    );
   }
 
   nextId() {
@@ -68,7 +85,11 @@ class AppContainer extends React.Component {
     return (
       <div>
         <VerticalNavbar />
-        <Header searchTerm={ this.state.searchTerm } searchAction={ this.handleSearch } />
+        <Header
+          searchTerm={ this.state.searchTerm }
+          searchTermGetValue={ this.getSearchValue }
+          searchAction={ this.handleSearch }
+        />
         <Route exact path='/' render={ () => <Redirect to='/notes' /> } />
         <div className='container'>
           <Switch>
