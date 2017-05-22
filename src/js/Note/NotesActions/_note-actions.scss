@@ -1,11 +1,38 @@
 @import '../../../scss/helpers/variables';
 
 .actions-area {
-  transition: all 0.5s;
+  transition: all 0.3s;
   position: relative;
 
   &--in-add {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &--in-note {
+    width: 100%;
+    color: $parrot-dark-green;
+    position: absolute;
+    bottom: -10rem;
+  }
+
+  &--lime {
+    color: $material-lime;
+  }
+
+  &--green {
+    color: $material-green;
+  }
+
+  &--blue {
+    color: $material-blue;
+  }
+
+  &--red {
+    color: $material-red;
+  }
+
+  &--orange {
+    color: $material-orange;
   }
 
   &-btn {

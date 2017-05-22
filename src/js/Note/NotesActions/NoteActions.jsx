@@ -6,14 +6,10 @@ import './_note-actions.scss';
 import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
 
-const NoteActions = ({ modifier, doneAction }) => (
-  <div className={ `actions-area actions-area${modifier}` }>
-    <NoteColorSelector />
-    <NoteAction faIcon='paint-brush' action={ () => {} } />
-    <NoteAction faIcon='archive' action={ () => {} } />
-    <NoteAction faIcon='tag' action={ () => {} } />
-
-    <button
+const tagAction = (modifier, doneAction) => {
+  let tag = null;
+  if (doneAction !== null) {
+    tag = (<button
       type='submit'
       value='Add new note'
       className={ `btn btn-default btn-block actions-area-btn actions-area-btn${modifier}
@@ -21,13 +17,23 @@ const NoteActions = ({ modifier, doneAction }) => (
       onClick={ doneAction }
     >
       <i className='fa fa-check' aria-hidden='true' />
-    </button>
+    </button>);
+  }
+  return tag;
+};
+const NoteActions = ({ modifier, doneAction }) => (
+  <div className={ `actions-area actions-area${modifier}` }>
+    <NoteColorSelector />
+    <NoteAction faIcon='paint-brush' modifier={ modifier } action={ () => {} } />
+    <NoteAction faIcon='archive' modifier={ modifier } action={ () => {} } />
+    <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
+    { tagAction(modifier, doneAction) }
   </div>
-);
+  );
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,
-  doneAction: PropTypes.func.isRequired,
+  doneAction: PropTypes.func,
 };
 
 NoteActions.defaultProps = {

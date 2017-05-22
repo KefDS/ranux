@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import NoteActions from '../NotesActions/NoteActions';
 import './_note.scss';
 
 class Note extends React.Component {
@@ -28,6 +28,10 @@ class Note extends React.Component {
         <p className='note__note-content'>
           {content}
         </p>
+        <NoteActions
+          modifier='--in-note'
+          doneAction={ null }
+        />
       </article>
     );
   }
