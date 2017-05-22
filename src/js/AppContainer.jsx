@@ -3,9 +3,9 @@ import Axios from 'axios';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import NotesContainer from './Note/NotesContainer';
-import NoteViewer from './Note/NoteViewer/NoteViewer';
 import NotFound from './NotFound/NotFound';
+import NotesPanel from './Note/NotesPanel/NotesPanel';
+import FolderPanel from './Folder/FolderPanel';
 import Header from '../js/Header/Header';
 import VerticalNavbar from '../js/VerticalNavbar/VerticalNavbar';
 
@@ -63,6 +63,10 @@ class AppContainer extends React.Component {
     });
   }
 
+  selectFolder(folder) {
+    console.log(folder.title);
+  }
+
   noteModified(modifiedNote) {
     this.setState({
       notes: this.handleActiveNote(modifiedNote),
@@ -96,26 +100,23 @@ class AppContainer extends React.Component {
             <Route
               path='/notes'
               render={ () => (
-                <div className='row'>
-                  <NoteViewer
-                    note={ this.state.activeNote }
-                    doneAction={ this.noteModified }
-                  />
-                  <NotesContainer
-                    title='Last Recently Used'
-                    notes={ this.state.notes }
-                    handlerSelectNote={ this.selectNote }
-                  />
-                </div>
+                <NotesPanel
+                  note={ this.state.activeNote }
+                  doneAction={ this.noteModified }
+                  notes={ this.state.notes }
+                  handlerSelectNote={ this.selectNote }
+                  title={ 'Last Recently Used' }
+                />
               ) }
             />
             <Route
               path='/folders'
               render={ () => (
-                <h1>
-                  FOLDERS must have its own component,
-                  which encapsulates FolderViewer and  maybe NotesContainer
-                </h1>
+                <FolderPanel
+                  title='Your folders'
+                  folders={ this.state.folders }
+                  handlerSelectFolder={ this.selectFolder }
+                />
               ) }
             />
             <Route path='*' component={ NotFound } />

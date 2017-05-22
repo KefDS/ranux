@@ -3,27 +3,21 @@
     "id": 1000,
     "title": "React Notes",
     "content": "React :-D",
-    "folder": "Folder 1"
   },
   {
     "id": 1001,
     "title": "Angular Notes",
     "content": "Angular :-|",
-    "folder": "Folder 1"
-
   },
   {
     "id": 1002,
     "title": "PHP Notes",
     "content": "PHP >:-(",
-    "folder": "Folder 1"
-
   },
   {
     "id": 1003,
     "title": "Ruby Notes",
     "content": "Ruby <3 ;-)",
-    "folder": "Folder 1"
   }
 ]
 }
