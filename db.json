@@ -2,22 +2,22 @@
   {
     "id": 1000,
     "title": "React Notes",
-    "content": "React :-D",
+    "content": "React :-D"
   },
   {
     "id": 1001,
     "title": "Angular Notes",
-    "content": "Angular :-|",
+    "content": "Angular :-|"
   },
   {
     "id": 1002,
     "title": "PHP Notes",
-    "content": "PHP >:-(",
+    "content": "PHP >:-("
   },
   {
     "id": 1003,
     "title": "Ruby Notes",
-    "content": "Ruby <3 ;-)",
+    "content": "Ruby <3 ;-)"
   }
 ]
 }

@@ -39,14 +39,23 @@
     display: inline-block;
     background-color: transparent;
     border: none;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-left: 1rem;
+    padding-right: 0.5rem;
     height: 40px;
 
     &--in-add {
+      transition: 0.3s;
+
       &:hover {
-        background-color: $parrot-dark-green;
-        color: white;
+        transform: scale(1.5);
+      }
+    }
+
+    &--in-note {
+      transition: 0.3s;
+
+      &:hover {
+        transform: scale(1.5);
       }
     }
   }
@@ -62,16 +71,29 @@
       color: white;
     }
   }
+
+  .pick-color:hover + .palette,
+  .palette:hover {
+    left: 0.5rem;
+    opacity: 1;
+  }
+
+  &__done {
+    &:hover {
+      transform: none;
+      background-color: $parrot-dark-green;
+      color: $parrot-white;
+    }
+  }
 }
 
 .palette {
   border: 1px solid rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: 0;
-  visibility: hidden;
-  background-color: rgba(255, 255, 255, 0.2);
-  left: 0.5rem;
-  transition: all 0.5s;
+  top: -3rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  left: -15rem;
+  transition: all 0.5s ease-in;
   opacity: 0;
 
   .palette__btn {
@@ -81,10 +103,4 @@
     border-radius: 50%;
     border: none;
   }
-}
-
-.show-palette {
-  top: -3rem;
-  visibility: visible;
-  opacity: 1;
 }

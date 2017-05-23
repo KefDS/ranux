@@ -18,15 +18,15 @@ class Folder extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <article onClick={ this.onClickHelper } >
+      <article className='folder' onClick={ this.onClickHelper } >
         <p className='folder__folder-name'>
           {title}
         </p>
-        <i className='fa fa-folder-open' aria-hidden='true' />
       </article>
     );
   }
 }
+
 Folder.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string,

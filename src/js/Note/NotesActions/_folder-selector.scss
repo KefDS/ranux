@@ -1,0 +1,32 @@
+@import '../../../scss/helpers/variables';
+
+.folder-select {
+  position: absolute;
+  left: -15rem;
+  top: -6.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.5s;
+  opacity: 0;
+  width: 75%;
+
+  &__add-folder {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  &__add-btn {
+    width: 25%;
+  }
+}
+
+.pick-folder:hover + .folder-select,
+.folder-select:hover {
+  left: 2rem;
+  opacity: 1;
+}
+
+.folder-select__folder-list li {
+  display: block;
+  width: 100%;
+  padding-right: 0;
+}

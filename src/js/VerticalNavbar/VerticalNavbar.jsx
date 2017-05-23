@@ -1,27 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './_verticalNavbar.scss';
 
 const VerticalNavbar = () => (
   <nav id='verticalNavbar' className='v-navbar'>
     <li>
-      <a href='' data-toggle='tooltip' title='Notes'>
+      <Link to='/'>
         <i className='fa fa-file' />
-      </a>
+      </Link>
     </li>
     <li>
-      <a href='' data-toggle='tooltip' title='Folders'>
+      <Link to='/folders'>
         <i className='fa fa-folder' aria-hidden='true' />
-      </a>
+      </Link>
     </li>
     <li>
       <a href='' data-toggle='tooltip' title='Tags'>
         <i className='fa fa-tag' aria-hidden='true' />
-      </a>
-    </li>
-    <li>
-      <a href='' data-toggle='tooltip' title='Archived Notes'>
-        <i className='fa fa-archive' aria-hidden='true' />
       </a>
     </li>
     <li>

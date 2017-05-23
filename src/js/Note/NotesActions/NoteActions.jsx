@@ -5,6 +5,7 @@ import './_note-actions.scss';
 
 import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
+import FolderSelector from './FolderSelector';
 
 const tagAction = (modifier, doneAction) => {
   let tag = null;
@@ -21,11 +22,12 @@ const tagAction = (modifier, doneAction) => {
   }
   return tag;
 };
-const NoteActions = ({ modifier, doneAction }) => (
+const NoteActions = ({ modifier, doneAction, handlerPick }) => (
   <div className={ `actions-area actions-area${modifier}` }>
-    <NoteColorSelector />
-    <NoteAction faIcon='paint-brush' modifier={ modifier } action={ () => {} } />
-    <NoteAction faIcon='archive' modifier={ modifier } action={ () => {} } />
+    <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
+    <NoteColorSelector action={ handlerPick } />
+    <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
+    <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
     { tagAction(modifier, doneAction) }
   </div>
