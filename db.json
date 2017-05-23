@@ -1,23 +1,52 @@
-{ "notes": [
-  {
-    "id": 1000,
-    "title": "React Notes",
-    "content": "React :-D",
-  },
-  {
-    "id": 1001,
-    "title": "Angular Notes",
-    "content": "Angular :-|",
-  },
-  {
-    "id": 1002,
-    "title": "PHP Notes",
-    "content": "PHP >:-(",
-  },
-  {
-    "id": 1003,
-    "title": "Ruby Notes",
-    "content": "Ruby <3 ;-)",
-  }
-]
+{
+  "notebooks": [
+    {
+      "id": "100",
+      "title": "Programming",
+      "notes": [
+        {
+          "id": "1000",
+          "title": "React Notes",
+          "content": "JS View Library :-D",
+          "color": "blue"
+        },
+        {
+          "id": "1001",
+          "title": "PHP Notes",
+          "content": "PHP == >:-(",
+          "color": "red"
+        },
+        {
+          "id": "1005",
+          "title": "React Router",
+          "content": "PHP == >:-(",
+          "color": "red"
+        }
+      ]
+    },
+    {
+      "id": "101",
+      "title": "Random",
+      "notes": [
+        {
+          "id": "1002",
+          "title": "Lisp",
+          "content": "(((((WTF! :-O)))))",
+          "color": "green"
+        },
+        {
+          "id": "1003",
+          "title": "Ruby Notes",
+          "content": "<3 *.*",
+          "color": "green"
+        },
+        {
+          "id": "1004",
+          "title": "Shopping List",
+          "content": "M&M's * 25.",
+          "color": "red"
+        }
+      ]
+    }
+  ]
 }

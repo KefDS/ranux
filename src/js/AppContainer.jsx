@@ -14,6 +14,7 @@ class AppContainer extends React.Component {
     super(props);
     this.counter = 0;
     this.state = {
+      notebooks: [],
       notes: [],
       activeNote: { id: this.nextId(), isNewNote: true },
       showArea: '',
@@ -24,16 +25,38 @@ class AppContainer extends React.Component {
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.getSearchValue = this.getSearchValue.bind(this);
   }
 
   componentDidMount() {
-    Axios.get('http://localhost:3000/notes/')
+    Axios.get('http://localhost:3000/notebooks/')
       .then((response) => {
-        this.setState({ notes: response.data });
+        this.setState({
+          notebooks: response.data,
+        });
+        // TODO: Recently used
+        this.setState({
+          notes: this.getNotesByNoteBook(),
+        });
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  getNotesByNoteBook(notebookName = '') {
+    return notebookName
+      ? this.state.notebooks.filter(notebook => notebook.title === notebookName)
+      : this.state.notebooks.reduce(
+          (acc, notebook) => acc.concat(notebook.notes),
+          [],
+        );
+  }
+
+  filterByTitle(collection, match) {
+    return collection.filter(
+      item => `${item.title}`.toUpperCase().indexOf(match.toUpperCase()) >= 0,
+    );
   }
 
   getSearchValue(newSearchTerm) {
@@ -42,19 +65,21 @@ class AppContainer extends React.Component {
     });
   }
 
-  handleSearch() {
-    // TODO: Filter note, notebook with search term criteria
-  }
-
-  _filterByTitle(collection, match) {
-    return collection.filter(
-      item => `${item.title}`.toUpperCase().indexOf(match.toUpperCase()) >= 0,
-    );
-  }
-
   nextId() {
     this.counter += 1;
     return this.counter;
+  }
+
+  handleSearch() {
+    // TODO: Filter note, notebook with search term
+
+    // Note search
+    this.setState({
+      notes: this.filterByTitle(
+        this.getNotesByNoteBook(),
+        this.state.searchTerm,
+      ),
+    });
   }
 
   selectNote(note) {
