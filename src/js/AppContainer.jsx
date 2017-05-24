@@ -1,7 +1,7 @@
 import React from 'react';
-import Axios from 'axios';
-
 import { Switch, Route, Redirect } from 'react-router-dom';
+
+import Axios from 'axios';
 
 import NotFound from './NotFound/NotFound';
 import NotesPanel from './Note/NotesPanel/NotesPanel';
@@ -14,12 +14,20 @@ class AppContainer extends React.Component {
     super(props);
     this.counter = 0;
     this.state = {
-      notebooks: [],
-      notes: [],
-      activeNote: { id: this.nextId(), isNewNote: true },
-      showArea: '',
-      searchTerm: '',
-      searchScope: 'notes',
+      data: {
+        activeNote: { id: this.nextId(), isNewNote: true },
+        notes: [],
+        folders: [],
+        tags: [],
+      },
+      uiState: {
+        showArea: '',
+      },
+      search: {
+        searchTerm: '',
+        searchScope: 'notes',
+        searchResults: [],
+      },
     };
 
     this.selectNote = this.selectNote.bind(this);
@@ -29,28 +37,30 @@ class AppContainer extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('http://localhost:3000/notebooks/')
+    Axios.get('http://localhost:3000/db/')
       .then((response) => {
-        this.setState({
-          notebooks: response.data,
-        });
-        // TODO: Recently used
-        this.setState({
-          notes: this.getNotesByNoteBook(),
-        });
+        this.setState(prevState => ({
+          data: {
+            ...prevState.data,
+            notes: response.data.notes,
+            folders: response.data.folders,
+            tags: response.data.tags,
+          },
+        }));
+        this.setSearchResults();
       })
       .catch((error) => {
-        console.log(error);
+        console.warn(error);
       });
   }
 
-  getNotesByNoteBook(notebookName = '') {
-    return notebookName
-      ? this.state.notebooks.filter(notebook => notebook.title === notebookName)
-      : this.state.notebooks.reduce(
-          (acc, notebook) => acc.concat(notebook.notes),
-          [],
-        );
+  // Privates methods
+
+  getNotesByFolders(folderId = 0) {
+    const { folders, notes } = this.state.data;
+    return folderId === 0
+      ? notes
+      : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -59,32 +69,67 @@ class AppContainer extends React.Component {
     );
   }
 
-  getSearchValue(newSearchTerm) {
-    this.setState({
-      searchTerm: newSearchTerm,
-    });
-  }
-
   nextId() {
     this.counter += 1;
     return this.counter;
   }
 
-  handleSearch() {
-    // TODO: Filter note, notebook with search term
-
-    // Note search
-    this.setState({
-      notes: this.filterByTitle(
-        this.getNotesByNoteBook(),
-        this.state.searchTerm,
-      ),
-    });
+  insertModifiedNote(note) {
+    const { notes } = this.state.data;
+    return note.isNewNote
+      ? notes.concat([note])
+      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
+
+  // Callbacks
 
   selectNote(note) {
     this.setState({
-      activeNote: note,
+      data: { ...this.state.data, activeNote: note },
+    });
+  }
+
+  noteModified(modifiedNote) {
+    this.setState({
+      data: {
+        notes: this.insertModifiedNote(modifiedNote),
+        activeNote: {
+          title: '',
+          content: '',
+          id: this.nextId(),
+          isNewNote: true,
+        },
+      },
+    });
+
+    this.setSearchResults();
+  }
+
+  getSearchValue(newSearchTerm) {
+    this.setState({
+      search: {
+        ...this.state.search,
+        searchTerm: newSearchTerm,
+      },
+    });
+  }
+
+  setSearchResults() {
+    this.setState(prevState => ({
+      search: { ...prevState.search, searchResults: prevState.data.notes },
+    }));
+  }
+
+  handleSearch() {
+    const { data, search } = this.state;
+    // TODO: Filter by note or notebook depending of search scope
+
+    // Note search
+    this.setState({
+      search: {
+        ...this.state.search,
+        searchResults: this.filterByTitle(data.notes, search.searchTerm),
+      },
     });
   }
 
@@ -92,30 +137,13 @@ class AppContainer extends React.Component {
     console.log(folder.title);
   }
 
-  noteModified(modifiedNote) {
-    this.setState({
-      notes: this.handleActiveNote(modifiedNote),
-      activeNote: {
-        id: this.nextId(),
-        isNewNote: true,
-      },
-    });
-  }
-
-  handleActiveNote(modifiedNote) {
-    return modifiedNote.isNewNote
-      ? this.state.notes.concat([modifiedNote])
-      : this.state.notes.map(
-          note => (note.id === modifiedNote.id ? modifiedNote : note),
-        );
-  }
-
   render() {
+    const { data, search } = this.state;
     return (
       <div>
         <VerticalNavbar />
         <Header
-          searchTerm={ this.state.searchTerm }
+          searchTerm={ search.searchTerm }
           searchTermGetValue={ this.getSearchValue }
           searchAction={ this.handleSearch }
         />
@@ -126,9 +154,9 @@ class AppContainer extends React.Component {
               path='/notes'
               render={ () => (
                 <NotesPanel
-                  note={ this.state.activeNote }
+                  note={ data.activeNote }
                   doneAction={ this.noteModified }
-                  notes={ this.state.notes }
+                  notes={ search.searchResults }
                   handlerSelectNote={ this.selectNote }
                   title={ 'Last Recently Used' }
                 />
@@ -139,7 +167,7 @@ class AppContainer extends React.Component {
               render={ () => (
                 <FolderPanel
                   title='Your folders'
-                  folders={ this.state.folders }
+                  folders={ data.folders }
                   handlerSelectFolder={ this.selectFolder }
                 />
               ) }
