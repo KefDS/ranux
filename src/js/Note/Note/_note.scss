@@ -8,7 +8,7 @@
 
   &-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-flow: row wrap;
     padding-top: $default-padding-top + 0.2rem;
     margin-bottom: $defualt-margin-bottom * 2;
@@ -65,6 +65,26 @@
 
 .orange {
   background: $material-orange;
+}
+
+.dark-lime {
+  background: $material-dark-lime;
+}
+
+.dark-green {
+  background: $material-dark-green;
+}
+
+.dark-blue {
+  background: $material-dark-blue;
+}
+
+.dark-red {
+  background: $material-dark-red;
+}
+
+.dark-orange {
+  background: $material-dark-orange;
 }
 
 @media only screen and (max-width: 767px) {

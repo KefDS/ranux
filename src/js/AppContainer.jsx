@@ -139,7 +139,7 @@ class AppContainer extends React.Component {
               render={ () => (
                 <FolderPanel
                   title='Your folders'
-                  folders={ this.state.folders }
+                  folders={ this.state.notebooks }
                   handlerSelectFolder={ this.selectFolder }
                 />
               ) }

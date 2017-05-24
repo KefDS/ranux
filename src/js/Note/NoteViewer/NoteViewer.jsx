@@ -46,10 +46,11 @@ export default class NoteViewerForm extends React.Component {
             placeholder='Take a note...'
             value={ this.state.note.content }
             onChange={ this.setValue.bind(this, 'content') }
-            rows='5'
+            rows='10'
           />
           <NoteActions
             modifier='--in-add'
+            color={ this.state.note.color }
             doneAction={ this.props.doneAction.bind(null, this.state.note) }
           />
         </section>

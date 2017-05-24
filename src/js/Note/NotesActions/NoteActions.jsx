@@ -22,7 +22,7 @@ const tagAction = (modifier, doneAction) => {
   }
   return tag;
 };
-const NoteActions = ({ modifier, doneAction, handlerPick }) => (
+const NoteActions = ({ modifier, doneAction, handlerPick, color }) => (
   <div className={ `actions-area actions-area${modifier}` }>
     <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
     <NoteColorSelector action={ handlerPick } />
@@ -30,6 +30,7 @@ const NoteActions = ({ modifier, doneAction, handlerPick }) => (
     <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
     { tagAction(modifier, doneAction) }
+    <div className={ `color-circle ${color}` } />
   </div>
   );
 

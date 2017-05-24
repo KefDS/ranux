@@ -1,0 +1,303 @@
+#%RAML 1.0
+title: RANA Rest services api
+version: v1
+protocols: [ HTTPS ]
+baseUri: http://localhost:8082/api/{version}
+mediaType: application/json
+
+types:
+  Note:
+    type: object
+    properties:
+      id: integer
+      title?: string
+      content?: string
+      color: string
+      notebookId: integer
+  Error:
+    type: object
+      properties:
+        code: integer
+        message: string
+
+  NoteBook:
+    type: object
+    properties:
+      id: integer
+      title: string
+/notes:
+  get:
+    description: Lists all notes matching the query criteria
+    responses:
+      200:
+        body:
+          application/json:
+            type: Note[]
+            examples: |
+                {
+                  "id": 1
+                  "title": "Note 1"
+                  "content": "Content of Note 1"
+                  "color": "green"
+                  "notebookId": 1
+                }
+      404:
+        body:
+          application/json:
+            type: Error
+            example: |
+                {
+                  "code": 404,
+                  "message": "Not Found"
+                }
+  post:
+    description: Adds a new note to the notebook specified in the body.
+    body:
+      application/json:
+        type: Note
+    responses:
+      201:
+        body:
+          application/json:
+            type: Note
+            examples: |
+                {
+                  "id": 1
+                  "title": "Note 1"
+                  "content": "Content of Note 1"
+                  "color": "green"
+                  "notebookId": 1
+                }
+
+  /{id}:
+    get:
+      description: Lists the note matching the specified id.
+      responses:
+        200:
+          body:
+            application/json:
+              type: Note
+              examples: |
+                  {
+                    "id": 1
+                    "title": "Note 1"
+                    "content": "Content of Note 1"
+                    "color": "green"
+                    "notebookId": 1
+                  }
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+    put:
+      description:  Modifies the note matching the specified id.
+      body:
+        application/json:
+          type: Note
+          examples: |
+              {
+                "id": 1
+                "title": "Note 1"
+                "content": "Content of Note 1"
+                "color": "green"
+                "notebookId": 1
+              }
+      responses:
+        200:
+          body:
+            application/json:
+              type: Note
+              examples: |
+                  {
+                    "id": 1
+                    "title": "Note 1"
+                    "content": "Content of Note 1"
+                    "color": "green"
+                    "notebookId": 1
+                  }
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+    delete:
+      description: Deletes a note matching the specified id.
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+/notebooks:
+  get:
+    description: Lists all  notebooks matching the query criteria
+    responses:
+      200:
+        body:
+          application/json:
+            type: Notebook[]
+            examples: |
+                {
+                  "id": 1
+                  "title": "Note 1"
+                }
+      404:
+        body:
+          application/json:
+            type: Error
+            example: |
+                {
+                  "code": 404,
+                  "message": "Not Found"
+                }
+    queryParameters:
+     title?: string
+  post:
+    description: Adds a notebook.
+    body:
+      application/json:
+        type: Notebook
+        examples: |
+            {
+              "id": 1
+              "title": "Note 1"
+            }
+    responses:
+      201:
+        body:
+          application/json:
+            type: Notebook
+            examples: |
+                {
+                  "id": 1
+                  "title": "Note 1"
+                }
+  /{id}:
+    get:
+      description: Lists the notebook matching the query criteria.
+      responses:
+        200:
+          body:
+            application/json:
+              type: Notebook
+              examples: |
+                  {
+                    "id": 1
+                    "title": "Note 1"
+                  }
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+    put:
+      description: Modifies the notebook matching the specified id. Modifications are sent in the body.
+      body:
+        application/json:
+          type: Notebook
+          examples: |
+              {
+                "id": 1
+                "title": "Note 1"
+              }
+      responses:
+        200:
+          body:
+            application/json:
+              type: Notebook
+              examples: |
+                  {
+                    "id": 1
+                    "title": "Note 1"
+                  }
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+    delete:
+      description: Deletes the notebook matching the specified id.
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              type: Error
+              example: |
+                  {
+                    "code": 404,
+                    "message": "Not Found"
+                  }
+    /notes:
+      get:
+        description: Lists the notes of the folder specified.
+        responses:
+          200:
+            body:
+              application/json:
+                type: Note[]
+                examples: |
+                    {
+                      "id": 1
+                      "title": "Note 1"
+                      "content": "Content of Note 1"
+                      "color": "green"
+                      "notebookId": 1
+                    }
+          404:
+            body:
+              application/json:
+                type: Error
+                example: |
+                    {
+                      "code": 404,
+                      "message": "Not Found"
+                    }
+      post:
+        description: Adds a note in the folder specified.
+        body:
+          application/json:
+            type: Note
+            examples: |
+                {
+                  "id": 1
+                  "title": "Note 1"
+                  "content": "Content of Note 1"
+                  "color": "green"
+                  "notebookId": 1
+                }
+        responses:
+          201:
+            body:
+              application/json:
+                type: Note
+                examples: |
+                    {
+                      "id": 1
+                      "title": "Note 1"
+                      "content": "Content of Note 1"
+                      "color": "green"
+                      "notebookId": 1
+                    }

@@ -6,11 +6,20 @@
 
   &--in-add {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    .color-circle {
+      width: 1.5rem;
+      transition: background-color 0.5s;
+      height: 1.5rem;
+      position: absolute;
+      border-radius: 50%;
+      right: 1rem;
+      top: -3rem;
+    }
   }
 
   &--in-note {
     width: 100%;
-    color: $parrot-dark-green;
     position: absolute;
     bottom: -10rem;
   }
@@ -68,14 +77,8 @@
 
     &--in-add {
       background-color: $parrot-medium-green;
-      color: white;
+      color: $parrot-white;
     }
-  }
-
-  .pick-color:hover + .palette,
-  .palette:hover {
-    left: 0.5rem;
-    opacity: 1;
   }
 
   &__done {
@@ -88,13 +91,14 @@
 }
 
 .palette {
-  border: 1px solid rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: -3rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  left: -15rem;
-  transition: all 0.5s ease-in;
+  top: -2.5rem;
+  left: 1rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in;
   opacity: 0;
+  z-index: -4444;
 
   .palette__btn {
     width: 1rem;
@@ -103,4 +107,14 @@
     border-radius: 50%;
     border: none;
   }
+}
+
+.pick-color:hover + .palette {
+  opacity: 1;
+  z-index: 4444;
+}
+
+.palette:hover {
+  opacity: 1;
+  z-index: 4444;
 }
