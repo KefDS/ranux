@@ -59,6 +59,7 @@ export default class NoteViewer extends React.Component {
           <NoteActions
             modifier='--in-add'
             doneAction={ this.handleSubmitButton }
+            color={ note.color }
           />
         </section>
       </section>

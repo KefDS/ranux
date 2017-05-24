@@ -30,6 +30,7 @@ class Note extends React.Component {
         </p>
         <NoteActions
           modifier='--in-note'
+          color={ `${color}` }
           doneAction={ null }
         />
       </article>
