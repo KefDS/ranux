@@ -1,52 +1,60 @@
 {
   "notebooks": [
     {
-      "id": "100",
-      "title": "Programming",
-      "notes": [
-        {
-          "id": "1000",
-          "title": "React Notes",
-          "content": "JS View Library :-D",
-          "color": "blue"
-        },
-        {
-          "id": "1001",
-          "title": "PHP Notes",
-          "content": "PHP == >:-(",
-          "color": "red"
-        },
-        {
-          "id": "1005",
-          "title": "React Router",
-          "content": "PHP == >:-(",
-          "color": "red"
-        }
-      ]
+      "id": "501",
+      "title": "Default"
     },
     {
-      "id": "101",
-      "title": "Random",
-      "notes": [
-        {
-          "id": "1002",
-          "title": "Lisp",
-          "content": "(((((WTF! :-O)))))",
-          "color": "green"
-        },
-        {
-          "id": "1003",
-          "title": "Ruby Notes",
-          "content": "<3 *.*",
-          "color": "green"
-        },
-        {
-          "id": "1004",
-          "title": "Shopping List",
-          "content": "M&M's * 25.",
-          "color": "red"
-        }
-      ]
+      "id": "1",
+      "title": "Programming"
+    },
+    {
+      "id": "2",
+      "title": "Random"
+    }
+  ],
+  "notes": [
+    {
+      "id": "1000",
+      "title": "React Notes",
+      "content": "JS View Library :-D",
+      "color": "blue",
+      "notebookId": "1"
+    },
+    {
+      "id": "1001",
+      "title": "PHP Notes",
+      "content": "PHP == >:-(",
+      "color": "red",
+      "notebookId": "1"
+    },
+    {
+      "id": "1005",
+      "title": "React Router",
+      "content": "React Router v4 > React Router v3 :v",
+      "color": "red",
+      "notebookId": "1"
+    },
+    {
+      "id": "1002",
+      "title": "Lisp Parenthesis",
+      "content": "(((((WTF! :-O)))))",
+      "color": "green",
+      "notebookId": "2"
+    },
+    {
+      "id": "1003",
+      "title": "Ruby Notes",
+      "content": "<3 *.*",
+      "color": "green",
+      "notebookId": "2"
+    },
+    {
+      "id": "1004",
+      "title": "Shopping List",
+      "content": "M&M's * 25.",
+      "color": "red",
+      "notebookId": "2"
     }
   ]
 }

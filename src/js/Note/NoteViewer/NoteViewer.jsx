@@ -5,12 +5,14 @@ import './_note-viewer.scss';
 
 import NoteActions from '../NotesActions/NoteActions';
 
-export default class NoteViewerForm extends React.Component {
+export default class NoteViewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       note: props.note,
     };
+
+    this.handleSubmitButton = this.handleSubmitButton.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +32,13 @@ export default class NoteViewerForm extends React.Component {
     });
   }
 
+  handleSubmitButton() {
+    // TODO: set folder that contains the note
+    this.props.doneAction(this.state.note);
+  }
+
   render() {
+    const { note } = this.state;
     return (
       <section className='col-md-4 col-md-offset-1 note-viewer'>
         <section className='note-viewer__form'>
@@ -38,20 +46,19 @@ export default class NoteViewerForm extends React.Component {
             className='form-control note-viewer__title'
             type='text'
             placeholder='Note Title'
-            value={ this.state.note.title }
+            value={ note.title }
             onChange={ this.setValue.bind(this, 'title') }
           />
           <textarea
             className='form-control note-viewer__textarea'
             placeholder='Take a note...'
-            value={ this.state.note.content }
+            value={ note.content }
             onChange={ this.setValue.bind(this, 'content') }
             rows='10'
           />
           <NoteActions
             modifier='--in-add'
-            color={ this.state.note.color }
-            doneAction={ this.props.doneAction.bind(null, this.state.note) }
+            doneAction={ this.handleSubmitButton }
           />
         </section>
       </section>
@@ -59,12 +66,13 @@ export default class NoteViewerForm extends React.Component {
   }
 }
 
-NoteViewerForm.propTypes = {
+NoteViewer.propTypes = {
   note: shape({
     id: number.isRequired,
     title: string,
     content: string,
     color: string,
+    notebookId: number,
     tags: arrayOf(string),
     isNewNote: bool,
   }),
@@ -72,12 +80,13 @@ NoteViewerForm.propTypes = {
   doneAction: func.isRequired,
 };
 
-NoteViewerForm.defaultProps = {
+NoteViewer.defaultProps = {
   note: shape({
     title: '',
     content: '',
     color: 'green',
+    notebookId: 501,
     tags: [],
-    isNewNote: true,
+    isNewNote: false,
   }),
 };
