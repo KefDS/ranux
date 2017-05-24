@@ -1,5 +1,5 @@
 {
-  "notebooks": [
+  "folders": [
     {
       "id": "501",
       "title": "Default"
@@ -32,7 +32,7 @@
       "id": "1005",
       "title": "React Router",
       "content": "React Router v4 > React Router v3 :v",
-      "color": "red",
+      "color": "lime",
       "notebookId": "1"
     },
     {
@@ -46,7 +46,7 @@
       "id": "1003",
       "title": "Ruby Notes",
       "content": "<3 *.*",
-      "color": "green",
+      "color": "orange",
       "notebookId": "2"
     },
     {
