@@ -19,7 +19,7 @@
   flex-basis: 45%;
   min-width: 200px;
   height: 13rem;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   margin-bottom: 1rem;
   position: relative;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -87,10 +87,22 @@
   background: $material-dark-orange;
 }
 
+@media only screen and (max-width: 991px) {
+  .notes {
+    &-container {
+      justify-content: space-around;
+    }
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .notes {
     h2 {
       text-align: center;
+    }
+
+    &-container {
+      justify-content: center;
     }
   }
 
