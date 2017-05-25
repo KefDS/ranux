@@ -22,7 +22,7 @@ const tagAction = (modifier, doneAction) => {
   }
   return tag;
 };
-const NoteActions = ({ modifier, doneAction, handlerColorPick, color }) => (
+const NoteActions = ({ modifier, doneAction, deleteAction, handlerColorPick, color }) => (
   <div className={ `actions-area actions-area${modifier}` }>
     <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
     <NoteColorSelector handlerColorPick={ handlerColorPick } />
@@ -30,14 +30,15 @@ const NoteActions = ({ modifier, doneAction, handlerColorPick, color }) => (
     <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
     { tagAction(modifier, doneAction) }
-    { /* TODO: ELIMINAR */ }
+    <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
     <div className={ `color-circle ${color}` } />
   </div>
   );
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,
-  doneAction: PropTypes.func,
+  doneAction: PropTypes.func.isRequired,
+  deleteAction: PropTypes.func.isRequired,
 };
 
 NoteActions.defaultProps = {

@@ -2,11 +2,12 @@ import React from 'react';
 import NotesContainer from '../NotesContainer';
 import NoteViewer from '../NoteViewer/NoteViewer';
 
-const NotesPanel = ({ note, doneAction, notes, handlerSelectNote, handlerColorPickView, handlerColorPickNotes, title }) => (
+const NotesPanel = ({ note, doneAction, deleteAction, notes, handlerSelectNote, handlerColorPickView, handlerColorPickNotes, title }) => (
   <div className='row'>
     <NoteViewer
       note={ note }
       doneAction={ doneAction }
+      deleteAction={ deleteAction }
       handlerColorPick={ handlerColorPickView }
     />
     <NotesContainer

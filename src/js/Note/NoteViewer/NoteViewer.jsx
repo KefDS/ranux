@@ -59,9 +59,9 @@ export default class NoteViewer extends React.Component {
           <NoteActions
             modifier='--in-add'
             doneAction={ this.handleSubmitButton }
+            deleteAction={ this.props.deleteAction.bind(null, this.state.note) }
             color={ note.color }
             handlerColorPick={ this.props.handlerColorPick }
-
           />
         </section>
       </section>
@@ -81,6 +81,7 @@ NoteViewer.propTypes = {
   }),
 
   doneAction: func.isRequired,
+  deleteAction: func.isRequired,
 };
 
 NoteViewer.defaultProps = {

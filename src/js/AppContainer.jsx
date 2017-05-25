@@ -15,7 +15,7 @@ class AppContainer extends React.Component {
     this.counter = 0;
     this.state = {
       data: {
-        activeNote: { id: this.nextId(), isNewNote: true }, // Y los demas???? color y asi??? wtf
+        activeNote: this.getDefaultActiveNote(),
         notes: [],
         folders: [],
         tags: [],
@@ -36,33 +36,34 @@ class AppContainer extends React.Component {
     this.handlerColorPickView = this.handlerColorPickView.bind(this);
     this.handlerColorPickNotes = this.handlerColorPickNotes.bind(this);
     this.getSearchValue = this.getSearchValue.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
   }
 
   componentDidMount() {
     Axios.get('http://localhost:3000/db/')
-    .then((response) => {
-      this.setState(prevState => ({
-        data: {
-          ...prevState.data,
-          notes: response.data.notes,
-          folders: response.data.folders,
-          tags: response.data.tags,
-        },
-      }));
-      this.setSearchResults();
-    })
-    .catch((error) => {
-      console.warn(error);
-    });
+      .then((response) => {
+        this.setState(prevState => ({
+          data: {
+            ...prevState.data,
+            notes: response.data.notes.map(note => ({ ...note, id: parseInt(note.id, 10) })),
+            folders: response.data.folders,
+            tags: response.data.tags,
+          },
+        }));
+        this.setSearchResults();
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
   }
 
-  // Privates methods
+  // Private methods
 
   getNotesByFolders(folderId = 0) {
     const { folders, notes } = this.state.data;
     return folderId === 0
-    ? notes
-    : folders.filter(folder => folder.id === folderId).pop().notes;
+      ? notes
+      : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -80,9 +81,20 @@ class AppContainer extends React.Component {
     // TODO: POST TO JSON
     const { notes } = this.state.data;
     return note.isNewNote
-    ? notes.concat([note])
-    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+      ? notes.concat([note])
+      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
+
+  getDefaultActiveNote() {
+    return {
+      id: this.nextId(),
+      title: '',
+      content: '',
+      color: 'green',
+      isNewNote: true,
+    };
+  }
+
 
   // Callbacks
 
@@ -96,12 +108,7 @@ class AppContainer extends React.Component {
     this.setState({
       data: {
         notes: this.insertModifiedNote(modifiedNote),
-        activeNote: {
-          title: '',
-          content: '',
-          id: this.nextId(),
-          isNewNote: true,
-        },
+        activeNote: this.getDefaultActiveNote(),
       },
     });
 
@@ -152,8 +159,19 @@ class AppContainer extends React.Component {
     // TODO Falta select color from notes
   }
 
-  eraseNote(note) {
-    // TODO Falta erase note
+  deleteNote(note) {
+    // Callback for note viewer
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        notes: prevState.data.notes.filter(
+          stateNote => stateNote.id !== note.id,
+        ),
+        activeNote: this.getDefaultActiveNote(),
+      },
+    }));
+
+    this.setSearchResults();
   }
 
   selectFolder(folder) {
@@ -179,6 +197,7 @@ class AppContainer extends React.Component {
                 <NotesPanel
                   note={ data.activeNote }
                   doneAction={ this.noteModified }
+                  deleteAction={ this.deleteNote }
                   notes={ search.searchResults }
                   handlerSelectNote={ this.selectNote }
                   handlerColorPickView={ this.handlerColorPickView }
