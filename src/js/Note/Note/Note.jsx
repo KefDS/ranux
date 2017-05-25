@@ -25,9 +25,9 @@ class Note extends React.Component {
       id: this.props.id,
       title: this.props.title,
       content: this.props.content,
-      color,
+      color: this.props.color,
     };
-    this.props.handlerColorPick(note);
+    this.props.handlerColorPick(note, color);
   }
 
   render() {

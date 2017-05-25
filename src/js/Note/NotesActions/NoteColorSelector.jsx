@@ -6,7 +6,8 @@ class NoteColorSelector extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  onClick(color) {
+  onClick(color, event) {
+    event.stopPropagation();
     this.props.handlerColorPick(color);
   }
   render() {

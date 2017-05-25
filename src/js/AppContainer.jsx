@@ -41,20 +41,20 @@ class AppContainer extends React.Component {
 
   componentDidMount() {
     Axios.get('http://localhost:3000/db/')
-      .then((response) => {
-        this.setState(prevState => ({
-          data: {
-            ...prevState.data,
-            notes: response.data.notes.map(note => ({ ...note, id: parseInt(note.id, 10) })),
-            folders: response.data.folders,
-            tags: response.data.tags,
-          },
-        }));
-        this.setSearchResults();
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    .then((response) => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: response.data.notes.map(note => ({ ...note, id: parseInt(note.id, 10) })),
+          folders: response.data.folders,
+          tags: response.data.tags,
+        },
+      }));
+      this.setSearchResults();
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
   }
 
   // Private methods
@@ -62,8 +62,8 @@ class AppContainer extends React.Component {
   getNotesByFolders(folderId = 0) {
     const { folders, notes } = this.state.data;
     return folderId === 0
-      ? notes
-      : folders.filter(folder => folder.id === folderId).pop().notes;
+    ? notes
+    : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -81,8 +81,8 @@ class AppContainer extends React.Component {
     // TODO: POST TO JSON
     const { notes } = this.state.data;
     return note.isNewNote
-      ? notes.concat([note])
-      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+    ? notes.concat([note])
+    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
   getDefaultActiveNote() {
@@ -105,13 +105,13 @@ class AppContainer extends React.Component {
   }
 
   noteModified(modifiedNote) {
-    this.setState({
+    this.setState(prevState => ({
       data: {
+        ...prevState.data,
         notes: this.insertModifiedNote(modifiedNote),
         activeNote: this.getDefaultActiveNote(),
       },
-    });
-
+    }));
     this.setSearchResults();
   }
 
@@ -155,8 +155,16 @@ class AppContainer extends React.Component {
     });
   }
 
-  handlerColorPickNotes(note) {
-    // TODO Falta select color from notes
+  handlerColorPickNotes(note, color) {
+    note.color = color;
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        notes: this.insertModifiedNote(note),
+        activeNote: this.getDefaultActiveNote(),
+      },
+    }));
+    this.setSearchResults();
   }
 
   deleteNote(note) {
