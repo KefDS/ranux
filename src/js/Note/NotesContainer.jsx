@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Note from './Note/Note';
 
-const NotesContainer = ({ notes, title, handlerSelectNote }) => (
+const NotesContainer = ({ notes, title, handlerSelectNote, handlerColorPick }) => (
   <section className='col-md-6 col-xm-12 col-md-offset-1 notes'>
     <h2>{title}</h2>
     <div className='notes-container'>
       {notes.map(note => <Note
         { ...note }
         handlerSelectNote={ handlerSelectNote }
+        handlerColorPick={ handlerColorPick }
       />)
       }
     </div>

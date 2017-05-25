@@ -7,6 +7,7 @@ class Note extends React.Component {
   constructor(props) {
     super(props);
     this.onClickHelper = this.onClickHelper.bind(this);
+    this.onColorPickHelper = this.onColorPickHelper.bind(this);
   }
 
   onClickHelper() {
@@ -18,8 +19,19 @@ class Note extends React.Component {
     };
     this.props.handlerSelectNote(note);
   }
+
+  onColorPickHelper(color) {
+    const note = {
+      id: this.props.id,
+      title: this.props.title,
+      content: this.props.content,
+      color,
+    };
+    this.props.handlerColorPick(note);
+  }
+
   render() {
-    const { color, title, content, handlerColorPick } = this.props;
+    const { color, title, content } = this.props;
     return (
       <article className={ `note ${color}` } onClick={ this.onClickHelper } >
         <p className='note__note-name'>
@@ -32,7 +44,7 @@ class Note extends React.Component {
           modifier='--in-note'
           color={ `${color}` }
           doneAction={ null }
-          handlerColorPick={ handlerColorPick }
+          handlerColorPick={ this.onColorPickHelper }
         />
       </article>
     );

@@ -51,8 +51,6 @@
     width: 76px;
   }
 
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-
   &__name {
     font-family: 'Lato', sans-serif;
     color: $parrot-dark-green;
@@ -107,6 +105,10 @@
     li {
       display: inline-block;
     }
+  }
+
+  .logo {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
 

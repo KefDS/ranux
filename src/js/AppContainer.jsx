@@ -33,26 +33,27 @@ class AppContainer extends React.Component {
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handlerColorPick = this.handlerColorPick.bind(this);
+    this.handlerColorPickView = this.handlerColorPickView.bind(this);
+    this.handlerColorPickNotes = this.handlerColorPickNotes.bind(this);
     this.getSearchValue = this.getSearchValue.bind(this);
   }
 
   componentDidMount() {
     Axios.get('http://localhost:3000/db/')
-      .then((response) => {
-        this.setState(prevState => ({
-          data: {
-            ...prevState.data,
-            notes: response.data.notes,
-            folders: response.data.folders,
-            tags: response.data.tags,
-          },
-        }));
-        this.setSearchResults();
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    .then((response) => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: response.data.notes,
+          folders: response.data.folders,
+          tags: response.data.tags,
+        },
+      }));
+      this.setSearchResults();
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
   }
 
   // Privates methods
@@ -60,8 +61,8 @@ class AppContainer extends React.Component {
   getNotesByFolders(folderId = 0) {
     const { folders, notes } = this.state.data;
     return folderId === 0
-      ? notes
-      : folders.filter(folder => folder.id === folderId).pop().notes;
+    ? notes
+    : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -76,10 +77,11 @@ class AppContainer extends React.Component {
   }
 
   insertModifiedNote(note) {
+    // TODO: POST TO JSON
     const { notes } = this.state.data;
     return note.isNewNote
-      ? notes.concat([note])
-      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+    ? notes.concat([note])
+    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
   // Callbacks
@@ -134,7 +136,7 @@ class AppContainer extends React.Component {
     });
   }
 
-  handlerColorPick(color) {
+  handlerColorPickView(color) {
     this.setState({
       data: {
         ...this.state.data,
@@ -146,8 +148,12 @@ class AppContainer extends React.Component {
     });
   }
 
-  handlerColorPickNote(color) {
-    console.log(color);
+  handlerColorPickNotes(note) {
+    // TODO Falta select color from notes
+  }
+
+  eraseNote(note) {
+    // TODO Falta erase note
   }
 
   selectFolder(folder) {
@@ -175,7 +181,8 @@ class AppContainer extends React.Component {
                   doneAction={ this.noteModified }
                   notes={ search.searchResults }
                   handlerSelectNote={ this.selectNote }
-                  handlerColorPick={ this.handlerColorPick }
+                  handlerColorPickView={ this.handlerColorPickView }
+                  handlerColorPickNotes={ this.handlerColorPickNotes }
                   title={ 'Last Recently Used' }
                 />
               ) }

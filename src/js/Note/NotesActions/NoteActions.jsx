@@ -30,6 +30,7 @@ const NoteActions = ({ modifier, doneAction, handlerColorPick, color }) => (
     <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
     { tagAction(modifier, doneAction) }
+    { /* TODO: ELIMINAR */ }
     <div className={ `color-circle ${color}` } />
   </div>
   );
