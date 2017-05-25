@@ -1,12 +1,24 @@
 import React from 'react';
 
-// TODO: Each color needs to be a component?
-const NoteColorSelector = () => (
-  <div className='palette' id='note-viewer-palette'>
-    <button type='button' className='red palette__btn' />
-    <button type='button' className='yellow palette__btn' />
-    <button type='button' className='green palette__btn' />
-  </div>
-);
+class NoteColorSelector extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(color) {
+    this.props.handlerColorPick(color);
+  }
+  render() {
+    return (
+      <div className='palette' id='note-viewer-palette'>
+        <button type='button' onClick={ this.onClick.bind(null, 'red') } className='red palette__btn' />
+        <button type='button' onClick={ this.onClick.bind(null, 'orange') } className='orange palette__btn' />
+        <button type='button' onClick={ this.onClick.bind(null, 'green') } className='green palette__btn' />
+        <button type='button' onClick={ this.onClick.bind(null, 'lime') } className='lime palette__btn' />
+        <button type='button' onClick={ this.onClick.bind(null, 'blue') } className='blue palette__btn' />
+      </div>);
+  }
+}
 
 export default NoteColorSelector;

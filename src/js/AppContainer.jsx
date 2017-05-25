@@ -15,7 +15,7 @@ class AppContainer extends React.Component {
     this.counter = 0;
     this.state = {
       data: {
-        activeNote: { id: this.nextId(), isNewNote: true },
+        activeNote: { id: this.nextId(), isNewNote: true }, // Y los demas???? color y asi??? wtf
         notes: [],
         folders: [],
         tags: [],
@@ -33,6 +33,7 @@ class AppContainer extends React.Component {
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handlerColorPick = this.handlerColorPick.bind(this);
     this.getSearchValue = this.getSearchValue.bind(this);
   }
 
@@ -133,6 +134,22 @@ class AppContainer extends React.Component {
     });
   }
 
+  handlerColorPick(color) {
+    this.setState({
+      data: {
+        ...this.state.data,
+        activeNote: {
+          ...this.state.data.activeNote,
+          color,
+        },
+      },
+    });
+  }
+
+  handlerColorPickNote(color) {
+    console.log(color);
+  }
+
   selectFolder(folder) {
     console.log(folder.title);
   }
@@ -158,6 +175,7 @@ class AppContainer extends React.Component {
                   doneAction={ this.noteModified }
                   notes={ search.searchResults }
                   handlerSelectNote={ this.selectNote }
+                  handlerColorPick={ this.handlerColorPick }
                   title={ 'Last Recently Used' }
                 />
               ) }
