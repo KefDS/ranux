@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
 
-const Folder = new Schema({
+const FolderSchema = new mongoose.Schema({
   title: String,
 });
 
-module.exports = Folder;
+module.exports = mongoose.model('Folder', FolderSchema);
