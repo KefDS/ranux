@@ -13,6 +13,10 @@
     position: absolute;
     bottom: -10rem;
 
+    .actions-area__trash-btn {
+      margin-right: 1rem;
+    }
+
     .fa {
       color: rgba(0, 0, 0, 0.4);
     }
@@ -50,6 +54,7 @@
     padding-right: 0.5rem;
     height: 40px;
     transition: 0.3s;
+    outline: none;
 
     .fa {
       transition: all 0.2s;

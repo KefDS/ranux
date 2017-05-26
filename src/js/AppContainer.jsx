@@ -191,9 +191,10 @@ class AppContainer extends React.Component {
         notes: prevState.data.notes.filter(
           stateNote => stateNote.id !== note.id,
         ),
+        activeNote: note.id === this.state.data.activeNote.id
+        ? this.getDefaultActiveNote() : prevState.data.activeNote,
       },
     }));
-
     this.setSearchResults();
   }
 
