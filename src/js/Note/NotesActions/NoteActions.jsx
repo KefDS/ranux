@@ -7,14 +7,13 @@ import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
 import FolderSelector from './FolderSelector';
 
-const tagAction = (modifier, doneAction) => {
+const tagAction = (modifier, doneAction, color) => {
   let tag = null;
   if (doneAction !== null) {
     tag = (<button
       type='submit'
-      value='Add new note'
-      className={ `btn btn-default btn-block actions-area-btn actions-area-btn${modifier}
-      actions-area__done actions-area__done${modifier}` }
+      className={ `btn btn-block actions-area-btn actions-area-btn${modifier}
+      actions-area__done actions-area__done${modifier} ${color}` }
       onClick={ doneAction }
     >
       <i className='fa fa-check' aria-hidden='true' />
@@ -29,9 +28,8 @@ const NoteActions = ({ modifier, doneAction, deleteAction, handlerColorPick, col
     <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
     <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
-    { tagAction(modifier, doneAction) }
+    { tagAction(modifier, doneAction, color) }
     <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
-    <div className={ `color-circle ${color}` } />
   </div>
   );
 
