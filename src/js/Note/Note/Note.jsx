@@ -8,6 +8,7 @@ class Note extends React.Component {
     super(props);
     this.onClickHelper = this.onClickHelper.bind(this);
     this.onColorPickHelper = this.onColorPickHelper.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   onClickHelper() {
@@ -30,6 +31,17 @@ class Note extends React.Component {
     this.props.handlerColorPick(note, color);
   }
 
+  onDelete(event) {
+    event.stopPropagation();
+    const note = {
+      id: this.props.id,
+      title: this.props.title,
+      content: this.props.content,
+      color: this.props.color,
+    };
+    this.props.deleteNoteNotesContainer(note);
+  }
+
   render() {
     const { color, title, content } = this.props;
     return (
@@ -45,6 +57,7 @@ class Note extends React.Component {
           color={ `${color}` }
           doneAction={ null }
           handlerColorPick={ this.onColorPickHelper }
+          deleteAction={ this.onDelete }
         />
       </article>
     );

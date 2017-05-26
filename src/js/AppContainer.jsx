@@ -37,6 +37,7 @@ class AppContainer extends React.Component {
     this.handlerColorPickNotes = this.handlerColorPickNotes.bind(this);
     this.getSearchValue = this.getSearchValue.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
+    this.deleteNoteNotesContainer = this.deleteNoteNotesContainer.bind(this);
   }
 
   componentDidMount() {
@@ -182,6 +183,21 @@ class AppContainer extends React.Component {
     this.setSearchResults();
   }
 
+  deleteNoteNotesContainer(note) {
+    // Callback for note viewer
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        notes: prevState.data.notes.filter(
+          stateNote => stateNote.id !== note.id,
+        ),
+      },
+    }));
+
+    this.setSearchResults();
+  }
+
+
   selectFolder(folder) {
     console.log(folder.title);
   }
@@ -205,6 +221,7 @@ class AppContainer extends React.Component {
                 <NotesPanel
                   note={ data.activeNote }
                   doneAction={ this.noteModified }
+                  deleteNoteNotesContainer={ this.deleteNoteNotesContainer }
                   deleteAction={ this.deleteNote }
                   notes={ search.searchResults }
                   handlerSelectNote={ this.selectNote }
