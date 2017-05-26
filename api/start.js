@@ -1,9 +1,8 @@
-const app = require('./index');
-
 require('dotenv').config();
-
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+
+const app = require('./app');
 
 const port = process.env.PORT;
 
