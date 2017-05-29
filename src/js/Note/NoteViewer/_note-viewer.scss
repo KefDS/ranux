@@ -1,0 +1,37 @@
+@import '../../../scss/base/general';
+
+.note-viewer {
+  padding-top: $default-padding-top;
+  padding-bottom: $default-padding-top * 2;
+  margin-bottom: $defualt-margin-bottom;
+
+  .btn {
+    border-radius: 0;
+    border: 0;
+  }
+
+  &__form {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #eaedf0;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    border: 0;
+    border-radius: 0;
+  }
+
+  &__textarea {
+    resize: none;
+    font-size: 1.3rem;
+    border: 0;
+    border-radius: 0;
+
+    &:focus {
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+      outline: none;
+    }
+  }
+}

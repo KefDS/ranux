@@ -10,11 +10,14 @@ body {
   font-size: 16px;
 }
 
-textarea:focus,
 input[type="search"]:focus,
 .new-note__textarea:focus,
 input[type="text"]:focus {
   border-color: transparent;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
-  outline: 0 none;
+  outline: none;
+}
+
+.title {
+  font-weight: lighter;
 }

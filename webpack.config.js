@@ -14,6 +14,9 @@ module.exports = {
     filename: 'bundle.js',
     path: path.join(__dirname, '/dist'),
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
@@ -29,6 +32,9 @@ module.exports = {
         test: /\.jsx?/,
         loader: 'eslint-loader',
         exclude: /node_modules/,
+        options: {
+          fix: true,
+        },
       },
       {
         test: /\.jsx?$/,

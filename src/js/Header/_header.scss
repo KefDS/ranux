@@ -1,3 +1,5 @@
+@import '../../scss/helpers/variables';
+
 .custom-navbar {
   border: none;
   border-radius: 0;
@@ -20,7 +22,7 @@
   background-color: #fff;
 }
 
-//Animate search button
+// Animate search button
 
 .main-nav {
   display: inline-block;
@@ -28,8 +30,8 @@
   float: right;
   top: 1rem;
 
-  //Nota: Era hacer esto, o copiar inspeccionando el elemnto
-  .search-group__input {
+  // Nota: Era hacer esto, o copiar inspeccionando el elemnto
+  .search-form__input {
     width: 9rem;
     transition: all 0.3s;
 
@@ -49,8 +51,6 @@
     width: 76px;
   }
 
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-
   &__name {
     font-family: 'Lato', sans-serif;
     color: $parrot-dark-green;
@@ -63,7 +63,7 @@
   }
 }
 
-//Navigation and List of navigation
+// Navigation and List of navigation
 
 .action-list {
   position: relative;
@@ -86,19 +86,19 @@
   }
 }
 
-//Search form
+// Search form
 
 .search-form {
   display: inline-block;
 }
 
-.search-group__btn {
-  margin-left: -2.7rem;
+.search-form__btn {
+  margin-left: -2.5rem;
   background-color: transparent;
   border-color: transparent;
 }
 
-//When sidebar disappears
+// When sidebar disappears
 
 @media only screen and (max-width: 991px) {
   .action-list {
@@ -106,30 +106,34 @@
       display: inline-block;
     }
   }
+
+  .logo {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .logo {
     left: 1rem;
   }
-  //When in mobile mode, get rid of transition and return to normal input
+  // When in mobile mode, get rid of transition and return to normal input
   .main-nav {
     width: 100%;
 
-    .search-group__input { //Era hacer esto, o copiar inspeccionando el elemnto
+    .search-form__input { //Era hacer esto, o copiar inspeccionando el elemnto
       width: 70%;
       float: left;
       transition: none;
     }
 
-    .search-group__btn {
+    .search-form__btn {
       border-color: #adadad;
       width: 20%;
       margin-left: 1rem;
       clear: both;
     }
 
-    .search-group__input:focus {
+    .search-form__input:focus {
       width: 70%;
     }
 

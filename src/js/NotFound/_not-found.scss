@@ -1,0 +1,15 @@
+@import '../../scss/base/general';
+@import '../../scss/helpers/variables';
+
+.not-found {
+  text-align: center;
+}
+
+.not-found__title {
+  color: $parrot-black;
+  opacity: 0.7;
+}
+
+.not-found__logo {
+  width: 30rem;
+}
