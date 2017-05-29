@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Axios from 'axios';
+import NotesGetter from './services/NotesGetter.js';
 
 import NotFound from './NotFound/NotFound';
 import NotesPanel from './Note/NotesPanel/NotesPanel';
@@ -30,6 +30,10 @@ class AppContainer extends React.Component {
       },
     };
 
+    this.bindOwnMethods();
+  }
+
+  bindOwnMethods() {
     this.selectNote = this.selectNote.bind(this);
     this.noteModified = this.noteModified.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -41,20 +45,25 @@ class AppContainer extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('http://localhost:3000/db/')
-    .then((response) => {
+    const noteGetter = new NotesGetter('http://localhost:3000/api/');
+
+    Promise.all([
+      noteGetter.getNotes(),
+      noteGetter.getFolders(),
+    ]).then((values) => {
+      console.dir(values);
       this.setState(prevState => ({
         data: {
           ...prevState.data,
-          notes: response.data.notes.map(note => ({ ...note, id: parseInt(note.id, 10) })),
-          folders: response.data.folders,
-          tags: response.data.tags,
+          notes: values[0].map(note => ({
+            ...note,
+            id: parseInt(note.id, 10),
+          })),
+          folders: values[1],
+          tags: [],
         },
       }));
       this.setSearchResults();
-    })
-    .catch((error) => {
-      console.warn(error);
     });
   }
 
@@ -63,8 +72,8 @@ class AppContainer extends React.Component {
   getNotesByFolders(folderId = 0) {
     const { folders, notes } = this.state.data;
     return folderId === 0
-    ? notes
-    : folders.filter(folder => folder.id === folderId).pop().notes;
+      ? notes
+      : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -82,8 +91,8 @@ class AppContainer extends React.Component {
     // TODO: POST TO JSON
     const { notes } = this.state.data;
     return note.isNewNote
-    ? notes.concat([note])
-    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+      ? notes.concat([note])
+      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
   getDefaultActiveNote() {
@@ -95,7 +104,6 @@ class AppContainer extends React.Component {
       isNewNote: true,
     };
   }
-
 
   // Callbacks
 
@@ -192,12 +200,12 @@ class AppContainer extends React.Component {
           stateNote => stateNote.id !== note.id,
         ),
         activeNote: note.id === this.state.data.activeNote.id
-        ? this.getDefaultActiveNote() : prevState.data.activeNote,
+          ? this.getDefaultActiveNote()
+          : prevState.data.activeNote,
       },
     }));
     this.setSearchResults();
   }
-
 
   selectFolder(folder) {
     console.log(folder.title);

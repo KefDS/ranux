@@ -10,7 +10,7 @@
   "scripts": {
     "json-server": "json-server db.json &",
     "dev": "webpack-dev-server",
-    "api": "nodemon api/start.js"
+    "api": "nodemon api/start.js",
     "raml": "raml2html docs/api.raml > docs/api.html "
   },
   "repository": "https://github.com/KefDS/ranux.git",
