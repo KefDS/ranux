@@ -13,6 +13,6 @@ router.put('/folders/:id', folderApi.modifyFolderById);
 router.get('/notes', notesController.index);
 router.post('/notes', notesController.create);
 router.put('/note/:id', notesController.update);
-router.delete('note/:id', notesController.destroy);
+router.delete('/note/:id', notesController.destroy);
 
 module.exports = router;

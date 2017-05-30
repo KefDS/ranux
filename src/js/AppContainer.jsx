@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import NotesGetter from './services/NotesGetter.js';
+import ApiCommunicator from './services/ApiCommunicator';
 
 import NotFound from './NotFound/NotFound';
 import NotesPanel from './Note/NotesPanel/NotesPanel';
@@ -31,6 +31,7 @@ class AppContainer extends React.Component {
     };
 
     this.bindOwnMethods();
+    this.apiCommunicator = new ApiCommunicator('http://localhost:3000/api/');
   }
 
   bindOwnMethods() {
@@ -42,23 +43,19 @@ class AppContainer extends React.Component {
     this.getSearchValue = this.getSearchValue.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.deleteNoteNotesContainer = this.deleteNoteNotesContainer.bind(this);
+    this.noteModifiedHelper = this.noteModifiedHelper.bind(this);
   }
 
   componentDidMount() {
-    const noteGetter = new NotesGetter('http://localhost:3000/api/');
-
     Promise.all([
-      noteGetter.getNotes(),
-      noteGetter.getFolders(),
+      this.apiCommunicator.getNotes(),
+      this.apiCommunicator.getFolders(),
     ]).then((values) => {
-      console.dir(values);
       this.setState(prevState => ({
+        // TODO: Get tags
         data: {
           ...prevState.data,
-          notes: values[0].map(note => ({
-            ...note,
-            id: parseInt(note.id, 10),
-          })),
+          notes: values[0].map(note => ({ ...note, id: note._id })),
           folders: values[1],
           tags: [],
         },
@@ -69,9 +66,9 @@ class AppContainer extends React.Component {
 
   // Private methods
 
-  getNotesByFolders(folderId = 0) {
+  getNotesByFolders(folderId = '') {
     const { folders, notes } = this.state.data;
-    return folderId === 0
+    return folderId
       ? notes
       : folders.filter(folder => folder.id === folderId).pop().notes;
   }
@@ -88,10 +85,9 @@ class AppContainer extends React.Component {
   }
 
   insertModifiedNote(note) {
-    // TODO: POST TO JSON
     const { notes } = this.state.data;
     return note.isNewNote
-      ? notes.concat([note])
+      ? [note, ...notes]
       : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
@@ -114,14 +110,26 @@ class AppContainer extends React.Component {
   }
 
   noteModified(modifiedNote) {
-    this.setState(prevState => ({
-      data: {
-        ...prevState.data,
-        notes: this.insertModifiedNote(modifiedNote),
-        activeNote: this.getDefaultActiveNote(),
-      },
-    }));
-    this.setSearchResults();
+    if (modifiedNote.isNewNote) {
+      this.noteModifiedHelper(this.apiCommunicator.newNote, modifiedNote);
+    } else {
+      this.noteModifiedHelper(this.apiCommunicator.updateNote, modifiedNote);
+    }
+  }
+
+  noteModifiedHelper(fn, modifiedNote) {
+    fn(modifiedNote)
+      .then(() => {
+        this.setState(prevState => ({
+          data: {
+            ...prevState.data,
+            notes: this.insertModifiedNote(modifiedNote),
+            activeNote: this.getDefaultActiveNote(),
+          },
+        }));
+        this.setSearchResults();
+      })
+      .catch(error => console.error(error));
   }
 
   getSearchValue(newSearchTerm) {
@@ -165,11 +173,10 @@ class AppContainer extends React.Component {
   }
 
   handlerColorPickNotes(note, color) {
-    note.color = color;
     this.setState(prevState => ({
       data: {
         ...prevState.data,
-        notes: this.insertModifiedNote(note),
+        notes: this.insertModifiedNote({ ...note, color }),
         activeNote: this.getDefaultActiveNote(),
       },
     }));
@@ -177,34 +184,37 @@ class AppContainer extends React.Component {
   }
 
   deleteNote(note) {
-    // Callback for note viewer
-    this.setState(prevState => ({
-      data: {
-        ...prevState.data,
-        notes: prevState.data.notes.filter(
-          stateNote => stateNote.id !== note.id,
-        ),
-        activeNote: this.getDefaultActiveNote(),
-      },
-    }));
+    this.apiCommunicator.deleteNote(note.id).then(() => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: prevState.data.notes.filter(
+            stateNote => stateNote.id !== note.id,
+          ),
+          activeNote: this.getDefaultActiveNote(),
+        },
+      }));
 
-    this.setSearchResults();
+      this.setSearchResults();
+    });
   }
 
   deleteNoteNotesContainer(note) {
-    // Callback for note viewer
-    this.setState(prevState => ({
-      data: {
-        ...prevState.data,
-        notes: prevState.data.notes.filter(
-          stateNote => stateNote.id !== note.id,
-        ),
-        activeNote: note.id === this.state.data.activeNote.id
-          ? this.getDefaultActiveNote()
-          : prevState.data.activeNote,
-      },
-    }));
-    this.setSearchResults();
+    this.apiCommunicator.deleteNote(note.id).then(() => {
+      // Callback for note viewer
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: prevState.data.notes.filter(
+            stateNote => stateNote.id !== note.id,
+          ),
+          activeNote: note.id === this.state.data.activeNote.id
+            ? this.getDefaultActiveNote()
+            : prevState.data.activeNote,
+        },
+      }));
+      this.setSearchResults();
+    });
   }
 
   selectFolder(folder) {
