@@ -21,12 +21,12 @@ const tagDoneAction = (modifier, doneAction, color) => {
   }
   return tag;
 };
-const NoteActions = ({ modifier, doneAction, deleteAction, handlerColorPick, color }) => (
+const NoteActions = ({ folders, modifier, doneAction, deleteAction, handlerColorPick, color }) => (
   <div className={ `actions-area actions-area${modifier}` }>
     <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
     <NoteColorSelector handlerColorPick={ handlerColorPick } />
     <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
-    <FolderSelector />
+    <FolderSelector folders={ folders } />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
     { tagDoneAction(modifier, doneAction, color) }
     <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />

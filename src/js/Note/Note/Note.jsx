@@ -43,7 +43,7 @@ class Note extends React.Component {
   }
 
   render() {
-    const { color, title, content } = this.props;
+    const { color, title, content, folders } = this.props;
     return (
       <article className={ `note ${color}` } onClick={ this.onClickHelper } >
         <p className='note__note-name'>
@@ -58,6 +58,7 @@ class Note extends React.Component {
           doneAction={ null }
           handlerColorPick={ this.onColorPickHelper }
           deleteAction={ this.onDelete }
+          folders={ folders }
         />
       </article>
     );

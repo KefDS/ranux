@@ -245,6 +245,7 @@ class AppContainer extends React.Component {
               render={ () => (
                 <NotesPanel
                   note={ data.activeNote }
+                  folders={ data.folders }
                   doneAction={ this.noteModified }
                   deleteNoteNotesContainer={ this.deleteNoteNotesContainer }
                   deleteAction={ this.deleteNote }
