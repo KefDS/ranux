@@ -3,8 +3,10 @@ import Axios from 'axios';
 export default class ApiCommunicator {
   constructor(url) {
     this.url = url;
+
     this.newNote = this.newNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
   }
 
   getData(suffixUrl) {
