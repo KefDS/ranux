@@ -4,7 +4,9 @@
     "jsx-quotes": [2, "prefer-single"],
     "react/jsx-curly-spacing": [2, "always"],
     "react/prefer-stateless-function": [0],
-    "react/jsx-no-bind": [0]
+    "react/jsx-no-bind": [0],
+    "react/jsx-a11y": [0],
+    "no-useless-constructor": 0,
   },
   "globals": {
     "document": true

@@ -36,6 +36,7 @@ function update(request, response) {
 }
 
 function destroy(request, response) {
+  console.log(request.params.id);
   Note.findByIdAndRemove(request.params.id, (error, data) => {
     if (!error) {
       response.status(204).json({});

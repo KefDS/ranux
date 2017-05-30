@@ -1,4 +1,5 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 class NoteColorSelector extends React.Component {
   constructor(props) {
@@ -21,5 +22,9 @@ class NoteColorSelector extends React.Component {
       </div>);
   }
 }
+
+NoteColorSelector.propTypes = {
+  handlerColorPick: func.isRequired,
+};
 
 export default NoteColorSelector;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { number, func, string, arrayOf } from 'prop-types';
 import Folder from '../Folder/Folder';
 
 const FolderContainer = ({ folders, title, handlerSelectFolder }) => (
@@ -9,5 +10,19 @@ const FolderContainer = ({ folders, title, handlerSelectFolder }) => (
     </div>
   </section>
 );
+
+FolderContainer.propTypes = {
+  folders: arrayOf({
+    id: number.isRequired,
+    title: string,
+  }),
+  title: string,
+  handlerSelectFolder: func.isRequired,
+};
+
+FolderContainer.defaultProps = {
+  folders: [],
+  title: 'Folders',
+};
 
 export default FolderContainer;

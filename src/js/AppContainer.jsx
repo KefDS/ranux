@@ -31,7 +31,7 @@ class AppContainer extends React.Component {
     };
 
     this.bindOwnMethods();
-    this.apiCommunicator = new ApiCommunicator('http://localhost:3000/api/');
+    this.apiCommunicator = new ApiCommunicator('http://localhost:3000/api');
   }
 
   bindOwnMethods() {
@@ -69,8 +69,8 @@ class AppContainer extends React.Component {
   getNotesByFolders(folderId = '') {
     const { folders, notes } = this.state.data;
     return folderId
-      ? notes
-      : folders.filter(folder => folder.id === folderId).pop().notes;
+    ? notes
+    : folders.filter(folder => folder.id === folderId).pop().notes;
   }
 
   filterByTitle(collection, match) {
@@ -87,8 +87,8 @@ class AppContainer extends React.Component {
   insertModifiedNote(note) {
     const { notes } = this.state.data;
     return note.isNewNote
-      ? [note, ...notes]
-      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+    ? [note, ...notes]
+    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
   getDefaultActiveNote() {
@@ -119,17 +119,17 @@ class AppContainer extends React.Component {
 
   noteModifiedHelper(fn, modifiedNote) {
     fn(modifiedNote)
-      .then(() => {
-        this.setState(prevState => ({
-          data: {
-            ...prevState.data,
-            notes: this.insertModifiedNote(modifiedNote),
-            activeNote: this.getDefaultActiveNote(),
-          },
-        }));
-        this.setSearchResults();
-      })
-      .catch(error => console.error(error));
+    .then(() => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: this.insertModifiedNote(modifiedNote),
+          activeNote: this.getDefaultActiveNote(),
+        },
+      }));
+      this.setSearchResults();
+    })
+    .catch(error => console.error(error));
   }
 
   getSearchValue(newSearchTerm) {
@@ -209,8 +209,8 @@ class AppContainer extends React.Component {
             stateNote => stateNote.id !== note.id,
           ),
           activeNote: note.id === this.state.data.activeNote.id
-            ? this.getDefaultActiveNote()
-            : prevState.data.activeNote,
+          ? this.getDefaultActiveNote()
+          : prevState.data.activeNote,
         },
       }));
       this.setSearchResults();

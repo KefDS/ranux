@@ -8,6 +8,24 @@
     flex-flow: row wrap;
     padding-top: $default-padding-top + 0.2rem;
     margin-bottom: $defualt-margin-bottom * 2;
+
+    a {
+      .folder p {
+        font-family: "Roboto", sans-serif;
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 300;
+
+        &:hover {
+          color: $parrot-light-green;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -16,7 +34,7 @@
   width: 15rem;
   height: 7rem;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  background-color: $material-dark-lime;
+  background-color: $parrot-medium-green;
   margin: 1rem;
   padding: 1rem;
 

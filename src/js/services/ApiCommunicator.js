@@ -12,11 +12,11 @@ export default class ApiCommunicator {
   }
 
   getNotes() {
-    return this.getData('notes');
+    return this.getData('/notes');
   }
 
   getFolders() {
-    return this.getData('folders');
+    return this.getData('/folders');
   }
 
   getTags() {
@@ -35,6 +35,7 @@ export default class ApiCommunicator {
   }
 
   deleteNote(id) {
+    console.log(id);
     return Axios.delete(`${this.url}/note/${id}`, { id });
   }
 

@@ -7,7 +7,7 @@ import NoteColorSelector from './NoteColorSelector';
 import NoteAction from './NoteAction';
 import FolderSelector from './FolderSelector';
 
-const tagAction = (modifier, doneAction, color) => {
+const tagDoneAction = (modifier, doneAction, color) => {
   let tag = null;
   if (doneAction !== null) {
     tag = (<button
@@ -28,19 +28,23 @@ const NoteActions = ({ modifier, doneAction, deleteAction, handlerColorPick, col
     <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
     <FolderSelector />
     <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
-    { tagAction(modifier, doneAction, color) }
+    { tagDoneAction(modifier, doneAction, color) }
     <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
   </div>
   );
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,
-  doneAction: PropTypes.func.isRequired,
+  doneAction: PropTypes.func,
   deleteAction: PropTypes.func.isRequired,
+  handlerColorPick: PropTypes.func.isRequired,
+  color: PropTypes.string,
 };
 
 NoteActions.defaultProps = {
   modifier: '',
+  color: 'green',
+  doneAction: () => (console.log('no done action')),
 };
 
 export default NoteActions;

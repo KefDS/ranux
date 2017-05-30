@@ -21,19 +21,21 @@ export default class NoteViewer extends React.Component {
     });
   }
 
-  setValue(field, event) {
-    // If the input fields were directly within this
-    // this component, we could use this.refs.[FIELD].value
-    // Instead, we want to save the data for when the form is submitted
+
+  setValue(field, value) {
     const object = { note: {} };
-    object.note[field] = event.target.value;
+    object.note[field] = value;
     this.setState({
       note: Object.assign(this.state.note, object.note),
     });
   }
+  setNote(field, event) {
+    this.setValue(field, event.target.value);
+  }
 
   handleSubmitButton() {
-    // TODO: set folder that contains the note
+    // TODO: set folder that contains the note. By default is zero
+    this.setValue('folderId', 0);
     this.props.doneAction(this.state.note);
   }
 
@@ -47,13 +49,13 @@ export default class NoteViewer extends React.Component {
             type='text'
             placeholder='Note Title'
             value={ note.title }
-            onChange={ this.setValue.bind(this, 'title') }
+            onChange={ this.setNote.bind(this, 'title') }
           />
           <textarea
             className='form-control note-viewer__textarea'
             placeholder='Take a note...'
             value={ note.content }
-            onChange={ this.setValue.bind(this, 'content') }
+            onChange={ this.setNote.bind(this, 'content') }
             rows='10'
           />
           <NoteActions
@@ -82,6 +84,7 @@ NoteViewer.propTypes = {
 
   doneAction: func.isRequired,
   deleteAction: func.isRequired,
+  handlerColorPick: func.isRequired,
 };
 
 NoteViewer.defaultProps = {

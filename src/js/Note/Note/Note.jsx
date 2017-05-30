@@ -69,6 +69,8 @@ Note.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   handlerSelectNote: PropTypes.func.isRequired,
+  handlerColorPick: PropTypes.func.isRequired,
+  deleteNoteNotesContainer: PropTypes.func.isRequired,
 };
 
 Note.defaultProps = {
