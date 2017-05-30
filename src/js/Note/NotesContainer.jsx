@@ -8,6 +8,7 @@ const NotesContainer = ({ notes, title, handlerSelectNote,
       <h2 className='title'>{title}</h2>
       <div className='notes-container'>
         {notes.map(note => <Note
+          key={ note.id }
           { ...note }
           handlerSelectNote={ handlerSelectNote }
           handlerColorPick={ handlerColorPick }

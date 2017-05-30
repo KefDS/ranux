@@ -73,7 +73,7 @@ export default class NoteViewer extends React.Component {
 
 NoteViewer.propTypes = {
   note: shape({
-    id: number.isRequired,
+    id: string.isRequired,
     title: string,
     content: string,
     color: string,

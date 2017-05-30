@@ -81,7 +81,7 @@ class AppContainer extends React.Component {
 
   nextId() {
     this.counter += 1;
-    return this.counter;
+    return `${this.counter}`;
   }
 
   insertModifiedNote(note) {

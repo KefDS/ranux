@@ -64,7 +64,7 @@ class Note extends React.Component {
   }
 }
 Note.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   color: PropTypes.string,
   title: PropTypes.string,
   content: PropTypes.string,

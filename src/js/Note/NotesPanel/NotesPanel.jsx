@@ -25,25 +25,29 @@ const NotesPanel = ({ note, doneAction, deleteAction,
 
 NotesPanel.propTypes = {
   note: shape({
-    id: number.isRequired,
+    id: string.isRequired,
     title: string,
     content: string,
     color: string,
     isNewNote: bool,
   }),
+
   doneAction: func.isRequired,
   deleteAction: func.isRequired,
   deleteNoteNotesContainer: func.isRequired,
-  notes: arrayOf({
-    id: number.isRequired,
+
+  notes: arrayOf(shape({
+    id: string.isRequired,
     title: string.isRequired,
     folderId: number,
-  }),
+  })),
+
   handlerSelectNote: func.isRequired,
   handlerColorPickView: func.isRequired,
   handlerColorPickNotes: func.isRequired,
   title: string,
 };
+
 NotesPanel.defaultProps = {
   notes: [],
   title: 'Notes',
