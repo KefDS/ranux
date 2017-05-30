@@ -56,7 +56,7 @@ class AppContainer extends React.Component {
         data: {
           ...prevState.data,
           notes: values[0].map(note => ({ ...note, id: note._id })),
-          folders: values[1],
+          folders: values[1].map(folder => ({ ...folder, id: folder._id })),
           tags: [],
         },
       }));
@@ -119,11 +119,15 @@ class AppContainer extends React.Component {
 
   noteModifiedHelper(fn, modifiedNote) {
     fn(modifiedNote)
-    .then(() => {
+    .then((data) => {
       this.setState(prevState => ({
         data: {
           ...prevState.data,
-          notes: this.insertModifiedNote(modifiedNote),
+          notes: this.insertModifiedNote(
+            modifiedNote.isNewNote
+            ? { ...modifiedNote, id: data._id }
+            : modifiedNote,
+          ),
           activeNote: this.getDefaultActiveNote(),
         },
       }));
@@ -173,14 +177,16 @@ class AppContainer extends React.Component {
   }
 
   handlerColorPickNotes(note, color) {
-    this.setState(prevState => ({
-      data: {
-        ...prevState.data,
-        notes: this.insertModifiedNote({ ...note, color }),
-        activeNote: this.getDefaultActiveNote(),
-      },
-    }));
-    this.setSearchResults();
+    this.apiCommunicator.updateNote({ ...note, color }).then(() => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          notes: this.insertModifiedNote({ ...note, color }),
+          activeNote: this.getDefaultActiveNote(),
+        },
+      }));
+      this.setSearchResults();
+    });
   }
 
   deleteNote(note) {
@@ -257,6 +263,14 @@ class AppContainer extends React.Component {
                   title='Your folders'
                   folders={ data.folders }
                   handlerSelectFolder={ this.selectFolder }
+                  note={ data.activeNote }
+                  doneAction={ this.noteModified }
+                  deleteNoteNotesContainer={ this.deleteNoteNotesContainer }
+                  deleteAction={ this.deleteNote }
+                  notes={ search.searchResults }
+                  handlerSelectNote={ this.selectNote }
+                  handlerColorPickView={ this.handlerColorPickView }
+                  handlerColorPickNotes={ this.handlerColorPickNotes }
                 />
               ) }
             />

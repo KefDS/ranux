@@ -1,6 +1,8 @@
 import React from 'react';
 import { bool, number, func, string, arrayOf, shape } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
+import NotFound from '../NotFound/NotFound';
+import NotesPanel from '../Note/NotesPanel/NotesPanel';
 import FolderContainer from './FolderContainer/FolderContainer';
 
 class FolderPanel extends React.Component {
