@@ -20,14 +20,14 @@ export default class TagSelection extends React.Component {
   }
 
   render() {
-    const { tags, selectedTagsIds } = this.props;
+    const { tags, color, selectedTagsIds } = this.props;
     return (
       <select multiple onChange={ this.handleOnChange }>
         {tags.map(
           tag =>
             (selectedTagsIds.includes(tag.id)
-              ? <option selected value={ tag.id }>{tag.title}</option>
-              : <option value={ tag.id }>{tag.title}</option>),
+              ? <option className={ `${color}Option` } selected value={ tag.id }>{tag.title}</option>
+              : <option className={ `${color}Option` } value={ tag.id }>{tag.title}</option>),
         )}
       </select>
     );

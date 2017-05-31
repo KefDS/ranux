@@ -86,6 +86,7 @@ export default class NoteViewer extends React.Component {
           <TagSelection
             className='tag__tags-selector'
             tags={ this.props.tags }
+            color={ note.color }
             selectedTagsIds={ note.tagsIds }
             getSelectedTags={ this.setSelectedTags }
           />

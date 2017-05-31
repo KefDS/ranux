@@ -1,4 +1,26 @@
-select[multiple] {
+@import '../../scss/helpers/_variables';
+
+.greenOption:checked {
+  background: linear-gradient(0deg, $material-green 0%, $material-green 100%);
+}
+
+.redOption:checked {
+  background: linear-gradient(0deg, $material-red 0%, $material-red 100%);
+}
+
+.blueOption:checked {
+  background: linear-gradient(0deg, $material-blue 0%, $material-blue 100%);
+}
+
+.orangeOption:checked {
+  background: linear-gradient(0deg, $material-orange 0%, $material-orange 100%);
+}
+
+.limeOption:checked {
+  background: linear-gradient(0deg, $material-lime 0%, $material-lime 100%);
+}
+
+.tag > select[multiple] {
   width: 100%;
   height: auto;
   padding: 0;
@@ -8,7 +30,4 @@ select[multiple] {
 
 .tag {
   padding-top: 2em;
-
-  &__tag-selector {
-  }
 }
