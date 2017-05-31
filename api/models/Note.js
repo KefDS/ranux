@@ -4,7 +4,7 @@ const NoteSchema = new mongoose.Schema({
   title: String,
   content: String,
   color: String,
-  notebookId: String,
+  folderId: String,
 });
 
 module.exports = mongoose.model('Note', NoteSchema);
