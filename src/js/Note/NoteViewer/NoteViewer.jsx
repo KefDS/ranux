@@ -76,7 +76,9 @@ export default class NoteViewer extends React.Component {
             deleteAction={ this.props.deleteAction.bind(null, this.state.note) }
             color={ note.color }
             handlerColorPick={ this.props.handlerColorPick }
-            handlerSelectFolderInNotesView={ this.props.handlerSelectFolderInNotesView }
+            handlerSelectFolderInNotesView={
+              this.props.handlerSelectFolderInNotesView
+            }
           />
         </section>
         <TagSelection
@@ -100,10 +102,12 @@ NoteViewer.propTypes = {
     isNewNote: bool,
   }),
 
-  tags: arrayOf(shape({
-    id: string.isRequired,
-    title: string.isRequired,
-  })),
+  tags: arrayOf(
+    shape({
+      id: string.isRequired,
+      title: string.isRequired,
+    }),
+  ),
 
   doneAction: func.isRequired,
   deleteAction: func.isRequired,
@@ -116,7 +120,8 @@ NoteViewer.defaultProps = {
     content: '',
     color: 'green',
     folderId: 'default',
-    tags: [],
+    tagsIds: [],
     isNewNote: false,
   }),
+  tags: [],
 };

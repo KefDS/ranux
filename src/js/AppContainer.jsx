@@ -42,7 +42,9 @@ class AppContainer extends React.Component {
     this.deleteNote = this.deleteNote.bind(this);
     this.deleteNoteNotesContainer = this.deleteNoteNotesContainer.bind(this);
     this.noteModifiedHelper = this.noteModifiedHelper.bind(this);
-    this.handlerSelectFolderInNotesView = this.handlerSelectFolderInNotesView.bind(this);
+    this.handlerSelectFolderInNotesView = this.handlerSelectFolderInNotesView.bind(
+      this,
+    );
     this.getFolderNotes = this.getFolderNotes.bind(this);
     this.getFolderTitle = this.getFolderTitle.bind(this);
   }
@@ -70,16 +72,14 @@ class AppContainer extends React.Component {
 
   getFolderNotes(folderId = '') {
     const { notes } = this.state.data;
-    return notes
-    ? notes.filter(note => note.folderId === folderId)
-    : notes;
+    return notes ? notes.filter(note => note.folderId === folderId) : notes;
   }
 
   getFolderTitle(folderId = '') {
     const { folders } = this.state.data;
     return folders
-    ? folders.filter(folder => folder.id === folderId).pop().title
-    : 'A folder';
+      ? folders.filter(folder => folder.id === folderId).pop().title
+      : 'A folder';
   }
 
   filterByTitle(collection, match) {
@@ -109,9 +109,9 @@ class AppContainer extends React.Component {
   }
 
   getDefaultFolderId() {
-    return this.state.data.folders.filter(folder => (
-      folder.title === 'Default'
-    )).pop().id;
+    return this.state.data.folders
+      .filter(folder => folder.title === 'Default')
+      .pop().id;
   }
 
   modifyNote(activeNote, field, value) {
@@ -138,9 +138,9 @@ class AppContainer extends React.Component {
 
   noteModified(modifiedNote) {
     if (modifiedNote.isNewNote) {
-      const newModifiedNote = modifiedNote.folderId === '' ?
-        this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId()) :
-        modifiedNote;
+      const newModifiedNote = modifiedNote.folderId === ''
+        ? this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId())
+        : modifiedNote;
       this.noteModifiedHelper(this.apiCommunicator.newNote, newModifiedNote);
     } else {
       this.noteModifiedHelper(this.apiCommunicator.updateNote, modifiedNote);
@@ -219,13 +219,15 @@ class AppContainer extends React.Component {
     });
   }
 
-
   handlerSelectFolderInNotesView(folderId) {
     this.setState(prevState => ({
       data: {
         ...prevState.data,
-        activeNote: this.modifyNote(prevState.data.activeNote,
-          'folderId', folderId),
+        activeNote: this.modifyNote(
+          prevState.data.activeNote,
+          'folderId',
+          folderId,
+        ),
       },
     }));
   }
@@ -236,8 +238,8 @@ class AppContainer extends React.Component {
         data: {
           ...prevState.data,
           notes: prevState.data.notes.filter(
-              stateNote => stateNote.id !== note.id,
-            ),
+            stateNote => stateNote.id !== note.id,
+          ),
           activeNote: this.getDefaultActiveNote(),
         },
       }));
@@ -248,13 +250,13 @@ class AppContainer extends React.Component {
 
   deleteNoteNotesContainer(note) {
     this.apiCommunicator.deleteNote(note.id).then(() => {
-        // Callback for note viewer
+      // Callback for note viewer
       this.setState(prevState => ({
         data: {
           ...prevState.data,
           notes: prevState.data.notes.filter(
-              stateNote => stateNote.id !== note.id,
-            ),
+            stateNote => stateNote.id !== note.id,
+          ),
           activeNote: note.id === this.state.data.activeNote.id
             ? this.getDefaultActiveNote()
             : prevState.data.activeNote,
@@ -265,7 +267,7 @@ class AppContainer extends React.Component {
   }
 
   selectFolder(folder) {
-      //  console.log(folder.title);
+    //  console.log(folder.title);
   }
 
   render() {
@@ -295,7 +297,9 @@ class AppContainer extends React.Component {
                   handlerSelectNote={ this.selectNote }
                   handlerColorPickView={ this.handlerColorPickView }
                   handlerColorPickNotes={ this.handlerColorPickNotes }
-                  handlerSelectFolderInNotesView={ this.handlerSelectFolderInNotesView }
+                  handlerSelectFolderInNotesView={
+                    this.handlerSelectFolderInNotesView
+                  }
                   title={ 'Last Recently Used' }
                 />
               ) }
@@ -318,7 +322,7 @@ class AppContainer extends React.Component {
                   getFolderNotes={ this.getFolderNotes }
                   getFolderTitle={ this.getFolderTitle }
                 />
-                ) }
+              ) }
             />
             <Route path='*' component={ NotFound } />
           </Switch>
@@ -326,6 +330,6 @@ class AppContainer extends React.Component {
       </div>
     );
   }
-  }
+}
 
 export default AppContainer;
