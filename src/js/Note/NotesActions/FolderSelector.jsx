@@ -14,7 +14,7 @@ class FolderSelector extends React.Component {
   }
 
   render() {
-    const { folders } = this.props;
+    const { folders, selectedFolder } = this.props;
     return (
       <div className='folder-select'>
         <select
@@ -23,11 +23,13 @@ class FolderSelector extends React.Component {
           onChange={ this.handlerFolderPick }
         >
           { folders.map(folder => (
-            <option value={ folder.id }>{ folder.title} </option>
+              folder.id === selectedFolder ?
+                <option selected value={ folder.id }>{ folder.title} </option> :
+                <option value={ folder.id }>{ folder.title} </option>
           )) }
         </select>
       </div>
     );
   }
-}
+  }
 export default FolderSelector;

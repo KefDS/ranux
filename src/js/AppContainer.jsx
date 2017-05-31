@@ -329,6 +329,7 @@ class AppContainer extends React.Component {
                   handlerColorPickView={ this.handlerColorPickView }
                   handlerColorPickNotes={ this.handlerColorPickNotes }
                   handlerSelectFolderInNotesCont={ this.handlerSelectFolderInNotesCont }
+                  handlerSelectFolderInNotesView={ this.handlerSelectFolderInNotesView }
                   getFolderNotes={ this.getFolderNotes }
                   getFolderTitle={ this.getFolderTitle }
                 />

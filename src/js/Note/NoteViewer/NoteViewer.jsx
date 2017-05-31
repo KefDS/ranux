@@ -60,6 +60,7 @@ export default class NoteViewer extends React.Component {
             modifier='--in-add'
             doneAction={ this.handleSubmitButton }
             folders={ this.props.folders }
+            selectedFolder={ note.folderId }
             deleteAction={ this.props.deleteAction.bind(null, this.state.note) }
             color={ note.color }
             handlerColorPick={ this.props.handlerColorPick }

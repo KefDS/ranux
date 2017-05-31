@@ -40,6 +40,7 @@ class Note extends React.Component {
       title: this.props.title,
       content: this.props.content,
       color: this.props.color,
+      folderId: this.props.folderId,
     };
     this.props.deleteNoteNotesContainer(note);
   }
@@ -60,6 +61,7 @@ class Note extends React.Component {
           color={ `${color}` }
           doneAction={ null }
           handlerColorPick={ this.onColorPickHelper }
+          selectedFolder={ this.props.folderId }
           handlerSelectFolder={ handlerSelectFolderInNotesCont.bind(null, this.props.id) }
           deleteAction={ this.onDelete }
           folders={ folders }
