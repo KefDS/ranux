@@ -63,7 +63,7 @@ export default class NoteViewer extends React.Component {
             deleteAction={ this.props.deleteAction.bind(null, this.state.note) }
             color={ note.color }
             handlerColorPick={ this.props.handlerColorPick }
-            handlerSelectFolderInNotesView={ this.props.handlerSelectFolderInNotesView }
+            handlerSelectFolder={ this.props.handlerSelectFolderInNotesView }
           />
         </section>
       </section>

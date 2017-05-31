@@ -45,7 +45,8 @@ class Note extends React.Component {
   }
 
   render() {
-    const { color, title, content, folders } = this.props;
+    const { color, title, content,
+      handlerSelectFolderInNotesCont, folders } = this.props;
     return (
       <article className={ `note ${color}` } onClick={ this.onClickHelper } >
         <p className='note__note-name'>
@@ -59,13 +60,14 @@ class Note extends React.Component {
           color={ `${color}` }
           doneAction={ null }
           handlerColorPick={ this.onColorPickHelper }
+          handlerSelectFolder={ handlerSelectFolderInNotesCont.bind(null, this.props.id) }
           deleteAction={ this.onDelete }
           folders={ folders }
         />
       </article>
     );
   }
-}
+  }
 Note.propTypes = {
   id: PropTypes.number.isRequired,
   color: PropTypes.string,

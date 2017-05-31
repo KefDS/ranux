@@ -10,19 +10,13 @@ class FolderSelector extends React.Component {
   handlerFolderPick(event) {
     const selectTag = event.target;
     const selectedOption = selectTag.options[selectTag.selectedIndex];
-    this.props.handlerSelectFolderInNotesView(selectedOption.value);
+    this.props.handlerSelectFolder(selectedOption.value);
   }
 
   render() {
     const { folders } = this.props;
     return (
       <div className='folder-select'>
-        <input
-          type='text'
-          className='folder-select__input'
-          name='folder-select--input'
-          list='folders-list'
-        />
         <select
           className='folder-select__folder-list'
           id='folders-list'

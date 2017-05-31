@@ -24,7 +24,7 @@ const tagDoneAction = (modifier, doneAction, color) => {
 const NoteActions = ({
     folders, modifier, doneAction,
     deleteAction, handlerColorPick, color,
-    handlerSelectFolderInNotesView,
+    handlerSelectFolder,
   }) => (
     <div className={ `actions-area actions-area${modifier}` }>
       <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
@@ -32,7 +32,7 @@ const NoteActions = ({
       <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
       <FolderSelector
         folders={ folders }
-        handlerSelectFolderInNotesView={ handlerSelectFolderInNotesView }
+        handlerSelectFolder={ handlerSelectFolder }
       />
       <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
       { tagDoneAction(modifier, doneAction, color) }

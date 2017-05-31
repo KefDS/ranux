@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Note from './Note/Note';
 
 const NotesContainer = ({ notes, title, handlerSelectNote,
-  handlerColorPick, folders, deleteNoteNotesContainer }) => (
+  handlerColorPick, folders, handlerSelectFolderInNotesCont,
+  deleteNoteNotesContainer }) => (
     <section className='col-md-6 col-xm-12 col-md-offset-1 notes'>
       <h2 className='title'>{title}</h2>
       <div className='notes-container'>
@@ -11,6 +12,7 @@ const NotesContainer = ({ notes, title, handlerSelectNote,
           { ...note }
           handlerSelectNote={ handlerSelectNote }
           handlerColorPick={ handlerColorPick }
+          handlerSelectFolderInNotesCont={ handlerSelectFolderInNotesCont }
           deleteNoteNotesContainer={ deleteNoteNotesContainer }
           folders={ folders }
         />)

@@ -46,6 +46,7 @@ class AppContainer extends React.Component {
     this.deleteNoteNotesContainer = this.deleteNoteNotesContainer.bind(this);
     this.noteModifiedHelper = this.noteModifiedHelper.bind(this);
     this.handlerSelectFolderInNotesView = this.handlerSelectFolderInNotesView.bind(this);
+    this.handlerSelectFolderInNotesCont = this.handlerSelectFolderInNotesCont.bind(this);
     this.getFolderNotes = this.getFolderNotes.bind(this);
     this.getFolderTitle = this.getFolderTitle.bind(this);
   }
@@ -119,11 +120,11 @@ class AppContainer extends React.Component {
     )).pop().id;
   }
 
-  modifyNote(activeNote, field, value) {
+  modifyNote(note, field, value) {
     const noteObject = {};
     noteObject[field] = value;
-    const newAC = Object.assign({}, activeNote, noteObject);
-    return newAC;
+    const newNote = Object.assign({}, note, noteObject);
+    return newNote;
   }
 
   // Callbacks
@@ -137,8 +138,8 @@ class AppContainer extends React.Component {
   noteModified(modifiedNote) {
     if (modifiedNote.isNewNote) {
       const newModifiedNote = modifiedNote.folderId === '' ?
-        this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId()) :
-        modifiedNote;
+      this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId()) :
+      modifiedNote;
       this.noteModifiedHelper(this.apiCommunicator.newNote, newModifiedNote);
     } else {
       this.noteModifiedHelper(this.apiCommunicator.updateNote, modifiedNote);
@@ -205,7 +206,6 @@ class AppContainer extends React.Component {
   }
 
   handlerColorPickNotes(note, color) {
-    console.log(note);
     this.apiCommunicator.updateNote({ ...note, color }).then(() => {
       this.setState(prevState => ({
         data: {
@@ -226,6 +226,21 @@ class AppContainer extends React.Component {
           'folderId', folderId),
       },
     }));
+  }
+
+  handlerSelectFolderInNotesCont(noteId, folderId) {
+    console.log(`${folderId} mmm  ${noteId}`);
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        notes: prevState.data.notes.map(note => (
+            note.id === noteId ?
+            this.modifyNote(note, 'folderId', folderId) :
+            note
+          )),
+      },
+    }));
+    this.setSearchResults();
   }
 
   deleteNote(note) {
@@ -293,6 +308,7 @@ class AppContainer extends React.Component {
                   handlerColorPickView={ this.handlerColorPickView }
                   handlerColorPickNotes={ this.handlerColorPickNotes }
                   handlerSelectFolderInNotesView={ this.handlerSelectFolderInNotesView }
+                  handlerSelectFolderInNotesCont={ this.handlerSelectFolderInNotesCont }
                   title={ 'Last Recently Used' }
                 />
               ) }
@@ -312,6 +328,7 @@ class AppContainer extends React.Component {
                   handlerSelectNote={ this.selectNote }
                   handlerColorPickView={ this.handlerColorPickView }
                   handlerColorPickNotes={ this.handlerColorPickNotes }
+                  handlerSelectFolderInNotesCont={ this.handlerSelectFolderInNotesCont }
                   getFolderNotes={ this.getFolderNotes }
                   getFolderTitle={ this.getFolderTitle }
                 />
