@@ -12,7 +12,7 @@ export default class TagSelection extends React.Component {
 
   handleOnChange(evt) {
     this.props.getSelectedTags(
-      [...evt.target.options].reduce(
+      evt.target.options.reduce(
         (acc, option) => (option.selected ? [...acc, option.value] : acc),
         [],
       ),
@@ -23,12 +23,15 @@ export default class TagSelection extends React.Component {
     const { tags, color, selectedTagsIds } = this.props;
     return (
       <select multiple onChange={ this.handleOnChange }>
-        {tags.map(
-          tag =>
-            (selectedTagsIds.includes(tag.id)
-              ? <option className={ `${color}Option` } selected value={ tag.id }>{tag.title}</option>
-              : <option className={ `${color}Option` } value={ tag.id }>{tag.title}</option>),
-        )}
+        {tags.map(tag => (
+          <option
+            className={ `${color}Option` }
+            selected={ selectedTagsIds.includes(tag.id) }
+            value={ tag.id }
+          >
+            {tag.title}
+          </option>
+        ))}
       </select>
     );
   }
