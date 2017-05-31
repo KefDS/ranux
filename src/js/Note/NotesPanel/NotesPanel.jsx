@@ -5,17 +5,19 @@ import NoteViewer from '../NoteViewer/NoteViewer';
 
 const NotesPanel = ({ note, doneAction, deleteAction,
   deleteNoteNotesContainer, notes, handlerSelectNote,
-  handlerColorPickView, handlerColorPickNotes, title }) => (
+  handlerColorPickView, handlerColorPickNotes, title, folders }) => (
     <div className='row'>
       <NoteViewer
         note={ note }
         doneAction={ doneAction }
         deleteAction={ deleteAction }
         handlerColorPick={ handlerColorPickView }
+        folders={ folders }
       />
       <NotesContainer
         title={ title }
         notes={ notes }
+        folders={ folders }
         handlerSelectNote={ handlerSelectNote }
         handlerColorPick={ handlerColorPickNotes }
         deleteNoteNotesContainer={ deleteNoteNotesContainer }

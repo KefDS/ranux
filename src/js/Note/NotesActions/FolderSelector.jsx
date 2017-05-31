@@ -7,6 +7,7 @@ class FolderSelector extends React.Component {
   }
 
   render() {
+    const { folders } = this.props;
     return (
       <div className='folder-select'>
         <input type='text' className='folder-select__add-folder' />
@@ -14,9 +15,9 @@ class FolderSelector extends React.Component {
           <i className='fa fa-plus' aria-hidden='true' />
         </button>
         <ul className='folder-select__folder-list' maxLength='50'>
-          <li>Folder 1</li>
-          <li>Folder 2</li>
-          <li>Folder 3</li>
+          { folders != null ? folders.map(folder => (
+            <li>{folder.title}</li>
+          )) : <li /> }
         </ul>
       </div>
     );

@@ -10,17 +10,6 @@ class FolderPanel extends React.Component {
     super(props);
   }
 
-  getFolderTitle(id) {
-    return this.props.folders.filter(folder => (
-      folder.id === id
-    ))[0].title;
-  }
-
-  getFolderNotes(id) {
-    return this.props.notes.filter(note => (
-      note.folderId === id
-    ));
-  }
 
   render() {
     const { title, folders, handlerSelectFolder,
