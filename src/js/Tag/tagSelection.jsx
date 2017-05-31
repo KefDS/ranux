@@ -1,6 +1,8 @@
 import React from 'react';
 import { string, arrayOf, shape, func } from 'prop-types';
 
+import './_tag.scss';
+
 export default class TagSelection extends React.Component {
   constructor(props) {
     super(props);

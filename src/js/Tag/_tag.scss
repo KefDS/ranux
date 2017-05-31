@@ -1,0 +1,14 @@
+select[multiple] {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  margin-top: 1em;
+}
+
+.tag {
+  padding-top: 2em;
+
+  &__tag-selector {
+  }
+}

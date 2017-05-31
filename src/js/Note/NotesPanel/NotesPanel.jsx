@@ -15,6 +15,7 @@ const NotesPanel = ({
   title,
   folders,
   tags,
+  handlerSelectFolderInNotesView,
 }) => (
   <div className='row'>
     <NoteViewer
@@ -22,6 +23,7 @@ const NotesPanel = ({
       doneAction={ doneAction }
       deleteAction={ deleteAction }
       handlerColorPick={ handlerColorPickView }
+      handlerSelectFolderInNotesView={ handlerSelectFolderInNotesView }
       folders={ folders }
       tags={ tags }
     />
@@ -35,7 +37,6 @@ const NotesPanel = ({
     />
   </div>
 );
-handlerSelectFolderInNotesView = { handlerSelectFolderInNotesView };
 
 NotesPanel.propTypes = {
   note: shape({
