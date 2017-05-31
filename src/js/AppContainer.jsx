@@ -12,6 +12,7 @@ import VerticalNavbar from '../js/VerticalNavbar/VerticalNavbar';
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.apiCommunicator = new ApiCommunicator('http://localhost:3000/api');
     this.counter = 0;
     this.state = {
       data: {
@@ -19,9 +20,6 @@ class AppContainer extends React.Component {
         notes: [],
         folders: [],
         tags: [],
-      },
-      uiState: {
-        showArea: '',
       },
       search: {
         searchTerm: '',
@@ -31,7 +29,6 @@ class AppContainer extends React.Component {
     };
 
     this.bindOwnMethods();
-    this.apiCommunicator = new ApiCommunicator('http://localhost:3000/api');
   }
 
   bindOwnMethods() {
@@ -55,14 +52,15 @@ class AppContainer extends React.Component {
     Promise.all([
       this.apiCommunicator.getNotes(),
       this.apiCommunicator.getFolders(),
+      this.apiCommunicator.getTags(),
     ]).then((values) => {
+      const serverData = values.map(data => data.map(item => this.setId(item)));
       this.setState(prevState => ({
-        // TODO: Get tags
         data: {
           ...prevState.data,
-          notes: values[0].map(note => ({ ...note, id: note._id })),
-          folders: values[1].map(folder => ({ ...folder, id: folder._id })),
-          tags: [],
+          notes: serverData[0],
+          folders: serverData[1],
+          tags: serverData[2],
         },
       }));
       this.setSearchResults();
@@ -73,16 +71,14 @@ class AppContainer extends React.Component {
 
   getFolderNotes(folderId = '') {
     const { notes } = this.state.data;
-    return notes
-    ? notes.filter(note => note.folderId === folderId)
-    : notes;
+    return notes ? notes.filter(note => note.folderId === folderId) : notes;
   }
 
   getFolderTitle(folderId = '') {
     const { folders } = this.state.data;
     return folders
-    ? folders.filter(folder => folder.id === folderId).pop().title
-    : 'A folder';
+      ? folders.filter(folder => folder.id === folderId).pop().title
+      : 'A folder';
   }
 
   filterByTitle(collection, match) {
@@ -91,16 +87,13 @@ class AppContainer extends React.Component {
     );
   }
 
-  nextId() {
-    this.counter += 1;
-    return this.counter;
+  setId(record) {
+    return { ...record, id: record._id };
   }
 
-  insertModifiedNote(note) {
-    const { notes } = this.state.data;
-    return note.isNewNote
-    ? [note, ...notes]
-    : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
+  nextId() {
+    this.counter += 1;
+    return `${this.counter}`;
   }
 
   getDefaultActiveNote() {
@@ -115,9 +108,9 @@ class AppContainer extends React.Component {
   }
 
   getDefaultFolderId() {
-    return this.state.data.folders.filter(folder => (
-      folder.title === 'Default'
-    )).pop().id;
+    return this.state.data.folders
+      .filter(folder => folder.title === 'Default')
+      .pop().id;
   }
 
   modifyNote(note, field, value) {
@@ -125,6 +118,13 @@ class AppContainer extends React.Component {
     noteObject[field] = value;
     const newNote = Object.assign({}, note, noteObject);
     return newNote;
+  }
+
+  insertModifiedNote(note) {
+    const { notes } = this.state.data;
+    return note.isNewNote
+      ? [note, ...notes]
+      : notes.map(stateNote => (note.id === stateNote.id ? note : stateNote));
   }
 
   // Callbacks
@@ -137,9 +137,9 @@ class AppContainer extends React.Component {
 
   noteModified(modifiedNote) {
     if (modifiedNote.isNewNote) {
-      const newModifiedNote = modifiedNote.folderId === '' ?
-      this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId()) :
-      modifiedNote;
+      const newModifiedNote = modifiedNote.folderId === ''
+        ? this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId())
+        : modifiedNote;
       this.noteModifiedHelper(this.apiCommunicator.newNote, newModifiedNote);
     } else {
       this.noteModifiedHelper(this.apiCommunicator.updateNote, modifiedNote);
@@ -148,21 +148,21 @@ class AppContainer extends React.Component {
 
   noteModifiedHelper(fn, modifiedNote) {
     fn(modifiedNote)
-    .then((data) => {
-      this.setState(prevState => ({
-        data: {
-          ...prevState.data,
-          notes: this.insertModifiedNote(
-            modifiedNote.isNewNote
-            ? { ...modifiedNote, id: data._id }
-            : modifiedNote,
-          ),
-          activeNote: this.getDefaultActiveNote(),
-        },
-      }));
-      this.setSearchResults();
-    })
-    .catch(error => console.error(error));
+      .then((data) => {
+        this.setState(prevState => ({
+          data: {
+            ...prevState.data,
+            notes: this.insertModifiedNote(
+              modifiedNote.isNewNote
+                ? { ...modifiedNote, id: data._id }
+                : modifiedNote,
+            ),
+            activeNote: this.getDefaultActiveNote(),
+          },
+        }));
+        this.setSearchResults();
+      })
+      .catch(error => console.error(error));
   }
 
   getSearchValue(newSearchTerm) {
@@ -217,13 +217,15 @@ class AppContainer extends React.Component {
     });
   }
 
-
   handlerSelectFolderInNotesView(folderId) {
     this.setState(prevState => ({
       data: {
         ...prevState.data,
-        activeNote: this.modifyNote(prevState.data.activeNote,
-          'folderId', folderId),
+        activeNote: this.modifyNote(
+          prevState.data.activeNote,
+          'folderId',
+          folderId,
+        ),
       },
     }));
   }
@@ -249,8 +251,8 @@ class AppContainer extends React.Component {
         data: {
           ...prevState.data,
           notes: prevState.data.notes.filter(
-              stateNote => stateNote.id !== note.id,
-            ),
+            stateNote => stateNote.id !== note.id,
+          ),
           activeNote: this.getDefaultActiveNote(),
         },
       }));
@@ -261,13 +263,13 @@ class AppContainer extends React.Component {
 
   deleteNoteNotesContainer(note) {
     this.apiCommunicator.deleteNote(note.id).then(() => {
-        // Callback for note viewer
+      // Callback for note viewer
       this.setState(prevState => ({
         data: {
           ...prevState.data,
           notes: prevState.data.notes.filter(
-              stateNote => stateNote.id !== note.id,
-            ),
+            stateNote => stateNote.id !== note.id,
+          ),
           activeNote: note.id === this.state.data.activeNote.id
             ? this.getDefaultActiveNote()
             : prevState.data.activeNote,
@@ -278,7 +280,7 @@ class AppContainer extends React.Component {
   }
 
   selectFolder(folder) {
-      //  console.log(folder.title);
+    //  console.log(folder.title);
   }
 
   render() {
@@ -299,6 +301,7 @@ class AppContainer extends React.Component {
               render={ () => (
                 <NotesPanel
                   note={ data.activeNote }
+                  tags={ data.tags }
                   folders={ data.folders }
                   doneAction={ this.noteModified }
                   deleteNoteNotesContainer={ this.deleteNoteNotesContainer }
@@ -333,7 +336,7 @@ class AppContainer extends React.Component {
                   getFolderNotes={ this.getFolderNotes }
                   getFolderTitle={ this.getFolderTitle }
                 />
-                ) }
+              ) }
             />
             <Route path='*' component={ NotFound } />
           </Switch>
@@ -341,6 +344,6 @@ class AppContainer extends React.Component {
       </div>
     );
   }
-  }
+}
 
 export default AppContainer;

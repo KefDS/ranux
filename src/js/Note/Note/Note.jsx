@@ -17,6 +17,7 @@ class Note extends React.Component {
       title: this.props.title,
       content: this.props.content,
       color: this.props.color,
+      tagsIds: this.props.tagsIds,
       folderId: this.props.folderId,
     };
     this.props.handlerSelectNote(note);
@@ -28,6 +29,7 @@ class Note extends React.Component {
       title: this.props.title,
       content: this.props.content,
       color: this.props.color,
+      tagsIds: this.props.tagsIds,
       folderId: this.props.folderId,
     };
     this.props.handlerColorPick(note, color);
@@ -49,7 +51,7 @@ class Note extends React.Component {
     const { color, title, content,
       handlerSelectFolderInNotesCont, folders } = this.props;
     return (
-      <article className={ `note ${color}` } onClick={ this.onClickHelper } >
+      <article className={ `note ${color}` } onClick={ this.onClickHelper }>
         <p className='note__note-name'>
           {title}
         </p>
@@ -71,10 +73,11 @@ class Note extends React.Component {
   }
   }
 Note.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   color: PropTypes.string,
   title: PropTypes.string,
   content: PropTypes.string,
+  tagsIds: PropTypes.arrayOf(PropTypes.string),
   handlerSelectNote: PropTypes.func.isRequired,
   handlerColorPick: PropTypes.func.isRequired,
   deleteNoteNotesContainer: PropTypes.func.isRequired,
@@ -84,6 +87,7 @@ Note.defaultProps = {
   color: 'green',
   title: '',
   content: '',
+  tagsIds: [],
 };
 
 export default Note;

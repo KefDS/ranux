@@ -9,6 +9,7 @@ const NotesContainer = ({ notes, title, handlerSelectNote,
       <h2 className='title'>{title}</h2>
       <div className='notes-container'>
         {notes.map(note => <Note
+          key={ note.id }
           { ...note }
           handlerSelectNote={ handlerSelectNote }
           handlerColorPick={ handlerColorPick }
@@ -28,6 +29,7 @@ NotesContainer.propTypes = {
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       color: PropTypes.string,
+      tagsIds: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
   ),
   handlerColorPick: PropTypes.func.isRequired,

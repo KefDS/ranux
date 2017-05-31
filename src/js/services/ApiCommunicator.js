@@ -22,8 +22,7 @@ export default class ApiCommunicator {
   }
 
   getTags() {
-    // TODO
-    return 0;
+    return this.getData('/tags');
   }
 
   newNote(note) {

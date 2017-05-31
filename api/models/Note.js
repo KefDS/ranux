@@ -4,6 +4,7 @@ const NoteSchema = new mongoose.Schema({
   title: String,
   content: String,
   color: String,
+  tagsIds: [String],
   folderId: String,
 });
 
