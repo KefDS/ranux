@@ -12,7 +12,7 @@ export default class TagSelection extends React.Component {
 
   handleOnChange(evt) {
     this.props.getSelectedTags(
-      evt.target.options.reduce(
+     [...evt.target.options].reduce(
         (acc, option) => (option.selected ? [...acc, option.value] : acc),
         [],
       ),
