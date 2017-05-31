@@ -15,7 +15,7 @@ class FolderPanel extends React.Component {
     const { title, folders, handlerSelectFolder,
       note, handlerSelectNote, handlerColorPickNotes,
       deleteAction, doneAction, handlerColorPickView,
-      deleteNoteNotesContainer } = this.props;
+      deleteNoteNotesContainer, getFolderNotes, getFolderTitle } = this.props;
     return (
       <div className='row'>
         <Switch>
@@ -35,14 +35,15 @@ class FolderPanel extends React.Component {
                 doneAction={ doneAction }
                 deleteNoteNotesContainer={ deleteNoteNotesContainer }
                 deleteAction={ deleteAction }
-                notes={ this.getFolderNotes(match.params.id) }
+                notes={ getFolderNotes(match.params.id) }
                 handlerSelectNote={ handlerSelectNote }
                 handlerColorPickView={ handlerColorPickView }
+                folders={ folders }
                 handlerColorPickNotes={ handlerColorPickNotes }
-                title={ `${this.getFolderTitle(match.params.id)} Notes` }
+                title={ `${getFolderTitle(match.params.id)} Notes` }
               />
 
-            ) }
+              ) }
           />
 
           <Route path='/folders/*' component={ NotFound } />

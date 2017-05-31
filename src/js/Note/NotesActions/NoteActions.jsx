@@ -21,17 +21,24 @@ const tagDoneAction = (modifier, doneAction, color) => {
   }
   return tag;
 };
-const NoteActions = ({ folders, modifier, doneAction, deleteAction, handlerColorPick, color }) => (
-  <div className={ `actions-area actions-area${modifier}` }>
-    <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
-    <NoteColorSelector handlerColorPick={ handlerColorPick } />
-    <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
-    <FolderSelector folders={ folders } />
-    <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
-    { tagDoneAction(modifier, doneAction, color) }
-    <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
-  </div>
-  );
+const NoteActions = ({
+    folders, modifier, doneAction,
+    deleteAction, handlerColorPick, color,
+    handlerSelectFolderInNotesView,
+  }) => (
+    <div className={ `actions-area actions-area${modifier}` }>
+      <NoteAction faIcon='paint-brush' modifier={ `${modifier} pick-color` } action={ () => {} } />
+      <NoteColorSelector handlerColorPick={ handlerColorPick } />
+      <NoteAction faIcon='folder' modifier={ `${modifier} pick-folder` } action={ () => {} } />
+      <FolderSelector
+        folders={ folders }
+        handlerSelectFolderInNotesView={ handlerSelectFolderInNotesView }
+      />
+      <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
+      { tagDoneAction(modifier, doneAction, color) }
+      <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
+    </div>
+    );
 
 NoteActions.propTypes = {
   modifier: PropTypes.string,

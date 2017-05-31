@@ -35,6 +35,7 @@ const NotesPanel = ({
     />
   </div>
 );
+handlerSelectFolderInNotesView = { handlerSelectFolderInNotesView };
 
 NotesPanel.propTypes = {
   note: shape({

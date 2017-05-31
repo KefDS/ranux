@@ -18,6 +18,7 @@ class Note extends React.Component {
       content: this.props.content,
       color: this.props.color,
       tagsIds: this.props.tagsIds,
+      folderId: this.props.folderId,
     };
     this.props.handlerSelectNote(note);
   }
@@ -29,6 +30,7 @@ class Note extends React.Component {
       content: this.props.content,
       color: this.props.color,
       tagsIds: this.props.tagsIds,
+      folderId: this.props.folderId,
     };
     this.props.handlerColorPick(note, color);
   }

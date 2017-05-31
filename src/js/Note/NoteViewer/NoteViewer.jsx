@@ -36,8 +36,6 @@ export default class NoteViewer extends React.Component {
   }
 
   handleSubmitButton() {
-    // TODO: set folder that contains the note. By default is zero
-    this.setValue('folderId', 0);
     this.props.doneAction(this.state.note);
   }
 
@@ -78,6 +76,7 @@ export default class NoteViewer extends React.Component {
             deleteAction={ this.props.deleteAction.bind(null, this.state.note) }
             color={ note.color }
             handlerColorPick={ this.props.handlerColorPick }
+            handlerSelectFolderInNotesView={ this.props.handlerSelectFolderInNotesView }
           />
         </section>
         <TagSelection
