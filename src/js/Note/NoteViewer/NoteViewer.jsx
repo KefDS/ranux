@@ -1,9 +1,10 @@
 import React from 'react';
-import { bool, number, func, string, arrayOf, shape } from 'prop-types';
+import { bool, func, string, arrayOf, shape } from 'prop-types';
 
 import './_note-viewer.scss';
 
 import NoteActions from '../NotesActions/NoteActions';
+import TagSelection from '../../Tag/tagSelection';
 
 export default class NoteViewer extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class NoteViewer extends React.Component {
     };
 
     this.handleSubmitButton = this.handleSubmitButton.bind(this);
+    this.setSelectedTags = this.setSelectedTags.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,7 +23,6 @@ export default class NoteViewer extends React.Component {
     });
   }
 
-
   setValue(field, value) {
     const object = { note: {} };
     object.note[field] = value;
@@ -29,6 +30,7 @@ export default class NoteViewer extends React.Component {
       note: Object.assign(this.state.note, object.note),
     });
   }
+
   setNote(field, event) {
     this.setValue(field, event.target.value);
   }
@@ -37,6 +39,17 @@ export default class NoteViewer extends React.Component {
     // TODO: set folder that contains the note. By default is zero
     this.setValue('folderId', 0);
     this.props.doneAction(this.state.note);
+  }
+
+  // callbacks
+
+  setSelectedTags(selectedTags) {
+    this.setState(prevState => ({
+      note: {
+        ...prevState.note,
+        tagsIds: selectedTags,
+      },
+    }));
   }
 
   render() {
@@ -67,6 +80,11 @@ export default class NoteViewer extends React.Component {
             handlerColorPick={ this.props.handlerColorPick }
           />
         </section>
+        <TagSelection
+          tags={ this.props.tags }
+          selectedTagsIds={ note.tagsIds }
+          getSelectedTags={ this.setSelectedTags }
+        />
       </section>
     );
   }
@@ -78,10 +96,15 @@ NoteViewer.propTypes = {
     title: string,
     content: string,
     color: string,
-    notebookId: number,
-    tags: arrayOf(string),
+    notebookId: string,
+    tagsIds: arrayOf(string),
     isNewNote: bool,
   }),
+
+  tags: arrayOf(shape({
+    id: string.isRequired,
+    title: string.isRequired,
+  })),
 
   doneAction: func.isRequired,
   deleteAction: func.isRequired,
@@ -93,7 +116,7 @@ NoteViewer.defaultProps = {
     title: '',
     content: '',
     color: 'green',
-    notebookId: 501,
+    folderId: 'default',
     tags: [],
     isNewNote: false,
   }),

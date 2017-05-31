@@ -5,6 +5,7 @@ const NoteSchema = new mongoose.Schema({
   content: String,
   color: String,
   notebookId: String,
+  tagsIds: [String],
 });
 
 module.exports = mongoose.model('Note', NoteSchema);

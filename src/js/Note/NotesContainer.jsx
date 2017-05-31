@@ -27,6 +27,7 @@ NotesContainer.propTypes = {
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       color: PropTypes.string,
+      tagsIds: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
   ),
   handlerColorPick: PropTypes.func.isRequired,

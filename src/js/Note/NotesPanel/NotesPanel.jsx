@@ -1,29 +1,40 @@
 import React from 'react';
-import { func, string, number, bool, arrayOf, shape } from 'prop-types';
+import { func, string, bool, arrayOf, shape } from 'prop-types';
 import NotesContainer from '../NotesContainer';
 import NoteViewer from '../NoteViewer/NoteViewer';
 
-const NotesPanel = ({ note, doneAction, deleteAction,
-  deleteNoteNotesContainer, notes, handlerSelectNote,
-  handlerColorPickView, handlerColorPickNotes, title, folders }) => (
-    <div className='row'>
-      <NoteViewer
-        note={ note }
-        doneAction={ doneAction }
-        deleteAction={ deleteAction }
-        handlerColorPick={ handlerColorPickView }
-        folders={ folders }
-      />
-      <NotesContainer
-        title={ title }
-        notes={ notes }
-        folders={ folders }
-        handlerSelectNote={ handlerSelectNote }
-        handlerColorPick={ handlerColorPickNotes }
-        deleteNoteNotesContainer={ deleteNoteNotesContainer }
-      />
-    </div>
-  );
+const NotesPanel = ({
+  note,
+  doneAction,
+  deleteAction,
+  deleteNoteNotesContainer,
+  notes,
+  handlerSelectNote,
+  handlerColorPickView,
+  handlerColorPickNotes,
+  title,
+  folders,
+  tags,
+}) => (
+  <div className='row'>
+    <NoteViewer
+      note={ note }
+      doneAction={ doneAction }
+      deleteAction={ deleteAction }
+      handlerColorPick={ handlerColorPickView }
+      folders={ folders }
+      tags={ tags }
+    />
+    <NotesContainer
+      title={ title }
+      notes={ notes }
+      folders={ folders }
+      handlerSelectNote={ handlerSelectNote }
+      handlerColorPick={ handlerColorPickNotes }
+      deleteNoteNotesContainer={ deleteNoteNotesContainer }
+    />
+  </div>
+);
 
 NotesPanel.propTypes = {
   note: shape({
@@ -32,17 +43,25 @@ NotesPanel.propTypes = {
     content: string,
     color: string,
     isNewNote: bool,
+    folderId: string,
+    tagsIds: arrayOf(string),
   }),
+
+  notes: arrayOf(
+    shape({
+      id: string.isRequired,
+      title: string,
+      content: string,
+      color: string,
+      isNewNote: bool,
+      folderId: string,
+      tagsIds: arrayOf(string),
+    }),
+  ),
 
   doneAction: func.isRequired,
   deleteAction: func.isRequired,
   deleteNoteNotesContainer: func.isRequired,
-
-  notes: arrayOf(shape({
-    id: string.isRequired,
-    title: string.isRequired,
-    folderId: number,
-  })),
 
   handlerSelectNote: func.isRequired,
   handlerColorPickView: func.isRequired,
