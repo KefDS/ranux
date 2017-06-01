@@ -46,6 +46,7 @@ class AppContainer extends React.Component {
     this.handlerSelectFolderInNotesCont = this.handlerSelectFolderInNotesCont.bind(this);
     this.getFolderNotes = this.getFolderNotes.bind(this);
     this.getFolderTitle = this.getFolderTitle.bind(this);
+    this.createFolder = this.createFolder.bind(this);
   }
 
   componentDidMount() {
@@ -118,6 +119,11 @@ class AppContainer extends React.Component {
     noteObject[field] = value;
     const newNote = Object.assign({}, note, noteObject);
     return newNote;
+  }
+
+  insertModifiedFolder(folder) {
+    const { folders } = this.state.data;
+    return [folder, ...folders];
   }
 
   insertModifiedNote(note) {
@@ -261,6 +267,20 @@ class AppContainer extends React.Component {
     });
   }
 
+
+  createFolder(folderTitle) {
+    const folder = {};
+    folder.title = folderTitle;
+    this.apiCommunicator.newFolder(folder).then((data) => {
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          folders: this.insertModifiedFolder(data),
+        },
+      }));
+    });
+  }
+
   deleteNoteNotesContainer(note) {
     this.apiCommunicator.deleteNote(note.id).then(() => {
       // Callback for note viewer
@@ -324,6 +344,7 @@ class AppContainer extends React.Component {
                   folders={ data.folders }
                   handlerSelectFolder={ this.selectFolder }
                   note={ data.activeNote }
+                  createFolder={ this.createFolder }
                   doneAction={ this.noteModified }
                   deleteNoteNotesContainer={ this.deleteNoteNotesContainer }
                   deleteAction={ this.deleteNote }
@@ -335,6 +356,8 @@ class AppContainer extends React.Component {
                   handlerSelectFolderInNotesView={ this.handlerSelectFolderInNotesView }
                   getFolderNotes={ this.getFolderNotes }
                   getFolderTitle={ this.getFolderTitle }
+                  tags={ data.tags }
+
                 />
               ) }
             />

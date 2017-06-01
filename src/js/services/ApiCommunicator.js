@@ -31,6 +31,11 @@ export default class ApiCommunicator {
     );
   }
 
+  newFolder(folder) {
+    return Axios.post(`${this.url}/folders`, folder).then(
+      response => response.data,
+    );
+  }
   updateNote(updatedNote) {
     return Axios.put(`${this.url}/note/${updatedNote.id}`, updatedNote);
   }

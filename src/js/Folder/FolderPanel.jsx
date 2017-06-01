@@ -15,7 +15,7 @@ class FolderPanel extends React.Component {
     const { title, folders, handlerSelectFolder,
       note, handlerSelectNote, handlerColorPickNotes,
       deleteAction, doneAction, handlerColorPickView,
-      handlerSelectFolderInNotesCont, handlerSelectFolderInNotesView,
+      handlerSelectFolderInNotesCont, createFolder, tags, handlerSelectFolderInNotesView,
       deleteNoteNotesContainer, getFolderNotes, getFolderTitle } = this.props;
     return (
       <div className='row'>
@@ -26,6 +26,7 @@ class FolderPanel extends React.Component {
                 title={ title }
                 folders={ folders }
                 handlerSelectFolder={ handlerSelectFolder }
+                createFolder={ createFolder }
               />
             ) }
           />
@@ -42,6 +43,7 @@ class FolderPanel extends React.Component {
                 handlerSelectFolderInNotesView={ handlerSelectFolderInNotesView }
                 handlerColorPickView={ handlerColorPickView }
                 folders={ folders }
+                tags={ tags }
                 handlerColorPickNotes={ handlerColorPickNotes }
                 title={ `${getFolderTitle(match.params.id)} Notes` }
               />

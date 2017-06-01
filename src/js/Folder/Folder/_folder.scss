@@ -33,9 +33,30 @@
   background-color: $parrot-medium-green;
   margin: 1rem;
   padding: 1rem;
+  transition: all 1s;
+
+  &.new-folder {
+    background-color: $parrot-light-green;
+
+    &:hover {
+      background-color: $parrot-dark-green;
+    }
+
+    input {
+      text-align: left;
+      font-size: 1.4em;
+    }
+  }
 
   &__folder-name {
     text-align: left;
     font-size: 1.4em;
+  }
+
+  &__new-folder {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
   }
 }
