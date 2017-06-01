@@ -1,7 +1,7 @@
 @import '../../../scss/base/general';
 @import '../../../scss/helpers/variables';
 
-.folders {
+.items {
   &-container {
     display: flex;
     justify-content: left;
@@ -10,7 +10,7 @@
     margin-bottom: $defualt-margin-bottom * 2;
 
     a {
-      .folder p {
+      .item p {
         font-family: "Roboto", sans-serif;
         text-decoration: none;
         color: $parrot-white;
@@ -25,7 +25,7 @@
   }
 }
 
-.folder {
+.item {
   font-size: 1rem;
   width: 18rem;
   height: 7rem;
@@ -35,7 +35,7 @@
   padding: 1rem;
   transition: all 1s;
 
-  &.new-folder {
+  &.new-item {
     background-color: $parrot-light-green;
 
     &:hover {
@@ -48,12 +48,12 @@
     }
   }
 
-  &__folder-name {
+  &__item-name {
     text-align: left;
     font-size: 1.4em;
   }
 
-  &__new-folder {
+  &__new-item {
     background-color: transparent;
     border: none;
     outline: none;

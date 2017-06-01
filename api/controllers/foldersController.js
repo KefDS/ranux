@@ -29,13 +29,14 @@ function getFolderById(req, res) {
 
 function addFolder(req, res) {
   const folder = new Folder(req.body);
-  folder.save(function (error) {
+  folder.save(function (error, data) {
+    console.log(data);
     if (error) {
       res.json(error);
       res.status(422);
     } else {
       res.status(201);
-      res.json(req.body);
+      res.json(data);
     }
   });
 }

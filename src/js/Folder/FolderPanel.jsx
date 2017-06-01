@@ -3,7 +3,7 @@ import { bool, number, func, string, arrayOf, shape } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import NotesPanel from '../Note/NotesPanel/NotesPanel';
-import FolderContainer from './FolderContainer/FolderContainer';
+import CollectionContainer from '../Collections/CollectionContainer/CollectionContainer';
 
 class FolderPanel extends React.Component {
   constructor(props) {
@@ -22,11 +22,11 @@ class FolderPanel extends React.Component {
         <Switch>
           <Route
             exact path='/folders' render={ () => (
-              <FolderContainer
+              <CollectionContainer
                 title={ title }
-                folders={ folders }
-                handlerSelectFolder={ handlerSelectFolder }
-                createFolder={ createFolder }
+                items={ folders }
+                handlerSelectItem={ handlerSelectFolder }
+                createItem={ createFolder }
               />
             ) }
           />
@@ -47,8 +47,7 @@ class FolderPanel extends React.Component {
                 handlerColorPickNotes={ handlerColorPickNotes }
                 title={ `${getFolderTitle(match.params.id)} Notes` }
               />
-
-              ) }
+            ) }
           />
 
           <Route path='/folders/*' component={ NotFound } />
@@ -66,7 +65,7 @@ FolderPanel.propTypes = {
     title: string.isRequired,
   }),
   title: string,
-  handlerSelectFolder: func.isRequired,
+  handlerSelectItem: func.isRequired,
   notes: arrayOf({
     id: number.isRequired,
     title: string.isRequired,
@@ -89,7 +88,7 @@ FolderPanel.propTypes = {
 
 FolderPanel.defaultProps = {
   folders: [],
-  title: 'Folders',
+  title: 'items',
   notes: [],
   note: {},
 };

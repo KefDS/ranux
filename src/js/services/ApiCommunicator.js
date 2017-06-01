@@ -6,7 +6,8 @@ export default class ApiCommunicator {
 
     this.newNote = this.newNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
+    this.updateNote = this.updateNote.bind(this);
+    this.newFolder = this.newFolder.bind(this);
   }
 
   getData(suffixUrl) {

@@ -107,7 +107,7 @@ class AppContainer extends React.Component {
       folderId: '',
     };
   }
-
+// the loop has yet not been closed
   getDefaultFolderId() {
     return this.state.data.folders
       .filter(folder => folder.title === 'Default')
@@ -146,6 +146,7 @@ class AppContainer extends React.Component {
       const newModifiedNote = modifiedNote.folderId === ''
         ? this.modifyNote(modifiedNote, 'folderId', this.getDefaultFolderId())
         : modifiedNote;
+
       this.noteModifiedHelper(this.apiCommunicator.newNote, newModifiedNote);
     } else {
       this.noteModifiedHelper(this.apiCommunicator.updateNote, modifiedNote);
@@ -237,7 +238,6 @@ class AppContainer extends React.Component {
   }
 
   handlerSelectFolderInNotesCont(noteId, folderId) {
-    console.log(`${folderId} mmm  ${noteId}`);
     this.setState(prevState => ({
       data: {
         ...prevState.data,
@@ -275,7 +275,7 @@ class AppContainer extends React.Component {
       this.setState(prevState => ({
         data: {
           ...prevState.data,
-          folders: this.insertModifiedFolder(data),
+          folders: this.insertModifiedFolder({ ...data, id: data._id }),
         },
       }));
     });

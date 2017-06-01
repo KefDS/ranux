@@ -35,7 +35,6 @@ const NoteActions = ({
         handlerSelectFolder={ handlerSelectFolder }
         selectedFolder={ selectedFolder }
       />
-      <NoteAction faIcon='tag' modifier={ modifier } action={ () => {} } />
       { tagDoneAction(modifier, doneAction, color) }
       <NoteAction faIcon='trash' modifier={ `${modifier} actions-area__trash-btn` } action={ deleteAction } />
     </div>
